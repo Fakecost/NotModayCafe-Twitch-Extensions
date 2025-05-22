@@ -1,0 +1,266 @@
+.join-frame {
+  background-color: transparent;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.join-frame .div-4 {
+  background-image: url(../../../static/img/review-frame-2.png);
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 660px;
+  position: relative;
+  width: 578px;
+}
+
+.join-frame .close-button-4 {
+  background-image: url(../../../static/img/closebutton-3.png);
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 34px;
+  left: 534px;
+  position: absolute;
+  top: 10px;
+  width: 34px;
+}
+
+.join-frame .overlap-group-7 {
+  height: 96px;
+  left: 76px;
+  position: absolute;
+  top: 10px;
+  width: 426px;
+}
+
+.join-frame .status-UI-3 {
+  background-image: url(../../../static/img/statusui-3.png);
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 64px;
+  left: 79px;
+  position: absolute;
+  top: 0;
+  width: 268px;
+}
+
+.join-frame .main-button-4 {
+  align-items: center;
+  display: flex;
+  gap: 50px;
+  height: 64px;
+  position: relative;
+  width: 268px;
+}
+
+.join-frame .UI-customer-2 {
+  height: 56px;
+  object-fit: cover;
+  position: relative;
+  width: 56px;
+}
+
+.join-frame .customer-title {
+  color: #000000;
+  font-family: "Noto Sans", Helvetica;
+  font-size: 24px;
+  font-weight: 700;
+  height: 33px;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: 63px;
+}
+
+.join-frame .customer-grid {
+  background-image: url(../../../static/img/customergrid-3.png);
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 472px;
+  left: 23px;
+  position: absolute;
+  top: 114px;
+  width: 531px;
+}
+
+.join-frame .container-3 {
+  height: 452px;
+  left: 6px;
+  position: relative;
+  top: 6px;
+  width: 480px;
+}
+
+.join-frame .customer-button-instance {
+  left: 0 !important;
+  position: absolute !important;
+  top: 0 !important;
+}
+
+.join-frame .customer-button-2 {
+  left: 80px !important;
+  position: absolute !important;
+  top: 0 !important;
+}
+
+.join-frame .customer-button-3 {
+  left: 160px !important;
+  position: absolute !important;
+  top: 0 !important;
+}
+
+.join-frame .customer-button-4 {
+  left: 240px !important;
+  position: absolute !important;
+  top: 0 !important;
+}
+
+.join-frame .customer-button-5 {
+  left: 320px !important;
+  position: absolute !important;
+  top: 0 !important;
+}
+
+.join-frame .customer-button-6 {
+  left: 400px !important;
+  position: absolute !important;
+  top: 0 !important;
+}
+
+.join-frame .customer-button-7 {
+  left: 0 !important;
+  position: absolute !important;
+  top: 113px !important;
+}
+
+.join-frame .customer-button-8 {
+  left: 80px !important;
+  position: absolute !important;
+  top: 113px !important;
+}
+
+.join-frame .customer-button-9 {
+  left: 160px !important;
+  position: absolute !important;
+  top: 113px !important;
+}
+
+.join-frame .customer-button-10 {
+  left: 240px !important;
+  position: absolute !important;
+  top: 113px !important;
+}
+
+.join-frame .customer-button-11 {
+  left: 320px !important;
+  position: absolute !important;
+  top: 113px !important;
+}
+
+.join-frame .customer-button-12 {
+  left: 400px !important;
+  position: absolute !important;
+  top: 113px !important;
+}
+
+.join-frame .customer-button-13 {
+  left: 0 !important;
+  position: absolute !important;
+  top: 226px !important;
+}
+
+.join-frame .customer-button-14 {
+  left: 80px !important;
+  position: absolute !important;
+  top: 226px !important;
+}
+
+.join-frame .customer-button-15 {
+  left: 160px !important;
+  position: absolute !important;
+  top: 226px !important;
+}
+
+.join-frame .customer-button-16 {
+  left: 240px !important;
+  position: absolute !important;
+  top: 226px !important;
+}
+
+.join-frame .customer-button-17 {
+  left: 320px !important;
+  position: absolute !important;
+  top: 226px !important;
+}
+
+.join-frame .customer-button-18 {
+  left: 400px !important;
+  position: absolute !important;
+  top: 226px !important;
+}
+
+.join-frame .customer-button-19 {
+  left: 0 !important;
+  position: absolute !important;
+  top: 339px !important;
+}
+
+.join-frame .customer-button-20 {
+  left: 80px !important;
+  position: absolute !important;
+  top: 339px !important;
+}
+
+.join-frame .customer-button-21 {
+  left: 160px !important;
+  position: absolute !important;
+  top: 339px !important;
+}
+
+.join-frame .customer-button-22 {
+  left: 240px !important;
+  position: absolute !important;
+  top: 339px !important;
+}
+
+.join-frame .customer-button-23 {
+  left: 320px !important;
+  position: absolute !important;
+  top: 339px !important;
+}
+
+.join-frame .customer-button-24 {
+  left: 400px !important;
+  position: absolute !important;
+  top: 339px !important;
+}
+
+.join-frame .next-button-2 {
+  all: unset;
+  background-image: url(../../../static/img/ui-general-tab1-1-7.png);
+  background-position: 50% 50%;
+  background-size: cover;
+  box-sizing: border-box;
+  height: 34px;
+  left: 469px;
+  position: absolute;
+  top: 598px;
+  width: 94px;
+}
+
+.join-frame .text-wrapper-5 {
+  color: #000000;
+  font-family: "Noto Sans", Helvetica;
+  font-size: 16px;
+  font-weight: 400;
+  height: 22px;
+  left: 28px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: 5px;
+}

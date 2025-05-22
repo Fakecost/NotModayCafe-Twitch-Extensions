@@ -1,0 +1,15 @@
+.staff-button {
+  background-image: url(../../../static/img/ui-general-tab3-1-12.png);
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 116px;
+  left: 20px;
+  position: relative;
+  top: 20px;
+  width: 116px;
+}
+
+.staff-button:hover {
+  background-image: url(../../../static/img/ui-general-tab3-1-13.png);
+  top: 156px;
+}

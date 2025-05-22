@@ -1,0 +1,321 @@
+.order-frame {
+  background-color: transparent;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.order-frame .div-3 {
+  background-image: url(../../../static/img/review-frame-2.png);
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 660px;
+  position: relative;
+  width: 578px;
+}
+
+.order-frame .food-grid {
+  background-image: url(../../../static/img/reviewdisplay-3.png);
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 459px;
+  left: 150px;
+  position: absolute;
+  top: 113px;
+  width: 413px;
+}
+
+.order-frame .container-2 {
+  height: 444px;
+  left: 9px;
+  position: relative;
+  top: 8px;
+  width: 374px;
+}
+
+.order-frame .food-button-instance {
+  left: 0 !important;
+  position: absolute !important;
+  top: 0 !important;
+}
+
+.order-frame .food-button-2 {
+  left: 187px !important;
+  position: absolute !important;
+  top: 0 !important;
+}
+
+.order-frame .food-button-3 {
+  left: 0 !important;
+  position: absolute !important;
+  top: 63px !important;
+}
+
+.order-frame .food-button-4 {
+  left: 187px !important;
+  position: absolute !important;
+  top: 63px !important;
+}
+
+.order-frame .food-button-5 {
+  left: 0 !important;
+  position: absolute !important;
+  top: 127px !important;
+}
+
+.order-frame .food-button-6 {
+  left: 187px !important;
+  position: absolute !important;
+  top: 127px !important;
+}
+
+.order-frame .food-button-7 {
+  left: 0 !important;
+  position: absolute !important;
+  top: 190px !important;
+}
+
+.order-frame .food-button-8 {
+  left: 187px !important;
+  position: absolute !important;
+  top: 190px !important;
+}
+
+.order-frame .food-button-9 {
+  left: 0 !important;
+  position: absolute !important;
+  top: 254px !important;
+}
+
+.order-frame .food-button-10 {
+  left: 187px !important;
+  position: absolute !important;
+  top: 254px !important;
+}
+
+.order-frame .food-button-11 {
+  left: 0 !important;
+  position: absolute !important;
+  top: 317px !important;
+}
+
+.order-frame .food-button-12 {
+  left: 187px !important;
+  position: absolute !important;
+  top: 317px !important;
+}
+
+.order-frame .food-button-13 {
+  left: 0 !important;
+  position: absolute !important;
+  top: 381px !important;
+}
+
+.order-frame .food-button-14 {
+  left: 187px !important;
+  position: absolute !important;
+  top: 381px !important;
+}
+
+.order-frame .back-button-wrapper {
+  all: unset;
+  box-sizing: border-box;
+  height: 34px;
+  left: 15px;
+  position: absolute;
+  top: 598px;
+  width: 94px;
+}
+
+.order-frame .overlap-group-wrapper-2 {
+  all: unset;
+  box-sizing: border-box;
+  height: 34px;
+  width: 96px;
+}
+
+.order-frame .overlap-group-5 {
+  background-image: url(../../../static/img/ui-general-tab1-1-6.png);
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 34px;
+  position: relative;
+  width: 94px;
+}
+
+.order-frame .text-wrapper-4 {
+  color: #000000;
+  font-family: "Noto Sans", Helvetica;
+  font-size: 16px;
+  font-weight: 400;
+  height: 22px;
+  left: 28px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: 6px;
+}
+
+.order-frame .next-button {
+  all: unset;
+  box-sizing: border-box;
+  height: 34px;
+  left: 469px;
+  position: absolute;
+  top: 598px;
+  width: 94px;
+}
+
+.order-frame .overlap-group-6 {
+  background-image: url(../../../static/img/ui-general-tab1-1-7.png);
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 34px;
+  position: relative;
+  width: 94px;
+}
+
+.order-frame .overlap-3 {
+  height: 96px;
+  left: 155px;
+  position: absolute;
+  top: 10px;
+  width: 268px;
+}
+
+.order-frame .order-title {
+  color: #000000;
+  font-family: "Noto Sans", Helvetica;
+  font-size: 24px;
+  font-weight: 700;
+  height: 33px;
+  left: 39px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: 63px;
+}
+
+.order-frame .status-UI-2 {
+  background-image: url(../../../static/img/statusui-3.png);
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 64px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 268px;
+}
+
+.order-frame .main-button-3 {
+  align-items: center;
+  display: flex;
+  gap: 50px;
+  height: 64px;
+  position: relative;
+  width: 268px;
+}
+
+.order-frame .UI-customer-icon {
+  height: 56px;
+  object-fit: cover;
+  position: relative;
+  width: 56px;
+}
+
+.order-frame .customer-display-2 {
+  background-image: url(../../../static/img/customerdisplay-3.png);
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 186px;
+  left: 15px;
+  position: absolute;
+  top: 111px;
+  width: 129px;
+}
+
+.order-frame .queue-name-2 {
+  color: #000000;
+  font-family: "Noto Sans", Helvetica;
+  font-size: 10px;
+  font-weight: 400;
+  height: 14px;
+  left: 3px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: 163px;
+  width: 123px;
+}
+
+.order-frame .customer-image-2 {
+  height: 153px;
+  left: 5px;
+  position: absolute;
+  top: 3px;
+  width: 121px;
+}
+
+.order-frame .food-icon-group-3 {
+  background-image: url(../../../static/img/foodicongroup-6.png);
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 118px;
+  left: 23px;
+  position: absolute;
+  top: 381px;
+  width: 112px;
+}
+
+.order-frame .food-icon-2 {
+  height: 105px;
+  left: 4px;
+  object-fit: cover;
+  position: absolute;
+  top: 4px;
+  width: 104px;
+}
+
+.order-frame .food-name-2 {
+  color: #000000;
+  font-family: "Noto Sans", Helvetica;
+  font-size: 10px;
+  font-weight: 400;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: 119px;
+  width: 110px;
+}
+
+.order-frame .order-header-2 {
+  color: #000000;
+  font-family: "Noto Sans", Helvetica;
+  font-size: 20px;
+  font-weight: 400;
+  height: 27px;
+  left: 4px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: -35px;
+  width: 110px;
+}
+
+.order-frame .close-button-3 {
+  background-image: url(../../../static/img/closebutton-3.png);
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 34px;
+  left: 534px;
+  position: absolute;
+  top: 10px;
+  width: 34px;
+}

@@ -1,0 +1,32 @@
+.slide {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.slide .main-button-wrapper-3 {
+  background-color: #ffffff;
+  height: 1080px;
+  width: 1920px;
+}
+
+.slide .main-button-6 {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  justify-content: center;
+  left: 40px;
+  position: relative;
+  top: 316px;
+  width: 116px;
+}
+
+.slide .design-component-instance-node-3 {
+  align-self: stretch !important;
+  left: unset !important;
+  top: unset !important;
+  width: 100% !important;
+}

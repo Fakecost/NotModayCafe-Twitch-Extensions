@@ -1,0 +1,293 @@
+.review-frame {
+  background-color: transparent;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.review-frame .div {
+  background-image: url(../../../static/img/review-frame-2.png);
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 660px;
+  position: relative;
+  width: 578px;
+}
+
+.review-frame .review-display {
+  background-image: url(../../../static/img/reviewdisplay-3.png);
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 459px;
+  left: 150px;
+  position: absolute;
+  top: 113px;
+  width: 413px;
+}
+
+.review-frame .food-big-display {
+  background-image: url(../../../static/img/foodbigdisplay-3.png);
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 212px;
+  left: 24px;
+  position: absolute;
+  top: 30px;
+  width: 365px;
+}
+
+.review-frame .overlap-group {
+  height: 308px;
+  left: -81px;
+  position: relative;
+  top: -48px;
+  width: 548px;
+}
+
+.review-frame .food-background {
+  height: 197px;
+  left: 88px;
+  position: absolute;
+  top: 54px;
+  width: 351px;
+}
+
+.review-frame .food-front {
+  height: 308px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 548px;
+}
+
+.review-frame .review-star-grid {
+  align-items: center;
+  display: inline-flex;
+  gap: 19px;
+  height: 36px;
+  left: 79px;
+  padding: 10px;
+  position: absolute;
+  top: 270px;
+}
+
+.review-frame .star-frame-instance {
+  left: unset !important;
+  margin-bottom: -8.00px !important;
+  margin-top: -8.00px !important;
+  top: unset !important;
+}
+
+.review-frame .review-text {
+  background-image: url(../../../static/img/reviewtext-3.png);
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 86px;
+  left: 35px;
+  position: absolute;
+  top: 333px;
+  width: 344px;
+}
+
+.review-frame .overlap {
+  height: 96px;
+  left: 155px;
+  position: absolute;
+  top: 10px;
+  width: 268px;
+}
+
+.review-frame .review-title {
+  color: #000000;
+  font-family: "Noto Sans", Helvetica;
+  font-size: 24px;
+  font-weight: 700;
+  height: 33px;
+  left: 92px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: 63px;
+}
+
+.review-frame .status-UI {
+  background-image: url(../../../static/img/statusui-3.png);
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 64px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 268px;
+}
+
+.review-frame .main-button {
+  align-items: center;
+  display: flex;
+  gap: 50px;
+  height: 64px;
+  position: relative;
+  width: 268px;
+}
+
+.review-frame .UI-customer {
+  height: 56px;
+  object-fit: cover;
+  position: relative;
+  width: 56px;
+}
+
+.review-frame .customer-display {
+  background-image: url(../../../static/img/customerdisplay-3.png);
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 186px;
+  left: 15px;
+  position: absolute;
+  top: 111px;
+  width: 129px;
+}
+
+.review-frame .text-wrapper {
+  color: #000000;
+  font-family: "Noto Sans", Helvetica;
+  font-size: 10px;
+  font-weight: 400;
+  height: 14px;
+  left: 3px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: 163px;
+  width: 123px;
+}
+
+.review-frame .customer-image {
+  height: 153px;
+  left: 5px;
+  position: absolute;
+  top: 3px;
+  width: 121px;
+}
+
+.review-frame .food-icon-group-2 {
+  background-image: url(../../../static/img/foodicongroup-6.png);
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 118px;
+  left: 23px;
+  position: absolute;
+  top: 381px;
+  width: 112px;
+}
+
+.review-frame .img {
+  height: 105px;
+  left: 4px;
+  object-fit: cover;
+  position: absolute;
+  top: 4px;
+  width: 104px;
+}
+
+.review-frame .p {
+  color: #000000;
+  font-family: "Noto Sans", Helvetica;
+  font-size: 10px;
+  font-weight: 400;
+  left: 0;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: 119px;
+  width: 110px;
+}
+
+.review-frame .order-header {
+  color: #000000;
+  font-family: "Noto Sans", Helvetica;
+  font-size: 20px;
+  font-weight: 400;
+  height: 27px;
+  left: 4px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: -35px;
+  width: 110px;
+}
+
+.review-frame .back-button {
+  all: unset;
+  box-sizing: border-box;
+  height: 34px;
+  left: 15px;
+  position: absolute;
+  top: 598px;
+  width: 94px;
+}
+
+.review-frame .overlap-group-wrapper {
+  all: unset;
+  box-sizing: border-box;
+  height: 34px;
+  width: 96px;
+}
+
+.review-frame .div-wrapper {
+  background-image: url(../../../static/img/ui-general-tab1-1-6.png);
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 34px;
+  position: relative;
+  width: 94px;
+}
+
+.review-frame .text-wrapper-2 {
+  color: #000000;
+  font-family: "Noto Sans", Helvetica;
+  font-size: 16px;
+  font-weight: 400;
+  height: 22px;
+  left: 28px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: 6px;
+}
+
+.review-frame .confirm-button {
+  all: unset;
+  box-sizing: border-box;
+  height: 34px;
+  left: 469px;
+  position: absolute;
+  top: 598px;
+  width: 94px;
+}
+
+.review-frame .overlap-group-2 {
+  background-image: url(../../../static/img/ui-general-tab1-1-7.png);
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 34px;
+  position: relative;
+  width: 94px;
+}
+
+.review-frame .close-button {
+  background-image: url(../../../static/img/closebutton-3.png);
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 34px;
+  left: 534px;
+  position: absolute;
+  top: 10px;
+  width: 34px;
+}

@@ -1,0 +1,19 @@
+.customer-button-wrapper {
+  background-image: url(../../../static/img/customerbutton-3.png);
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 113px;
+  left: 2518px;
+  position: relative;
+  top: 500px;
+  width: 80px;
+}
+
+.customer-button-wrapper .customer-icon {
+  height: 103px;
+  left: -1px;
+  object-fit: cover;
+  position: absolute;
+  top: -2px;
+  width: 82px;
+}

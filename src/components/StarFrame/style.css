@@ -1,0 +1,17 @@
+.star-frame {
+  background-image: url(../../../static/img/ui-review-icon1-1-6.png);
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 32px;
+  left: 2223px;
+  position: relative;
+  top: 696px;
+  width: 32px;
+}
+
+.star-frame .inacctive {
+  background-image: url(../../../static/img/ui-review-icon1-1-7.png);
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 32px;
+}
