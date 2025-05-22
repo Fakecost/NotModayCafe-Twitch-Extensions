@@ -1,35 +1,31 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { StarFrame } from "../../components/StarFrame";
 import "./style.css";
 
-export const ReviewFrame = () => {
+export const ReviewFrame = ({ onClose, onBack, onNext }) => {
   return (
     <div className="review-frame">
-      <div className="div">
+      <div className="div-2">
         <div className="review-display">
           <div className="food-big-display">
             <div className="overlap-group">
               <img
                 className="food-background"
                 alt="Food background"
-                src="/img/foodbackground-3.png"
+                src="https://cdn.animaapp.com/projects/682af909abc7ae9309e7e566/releases/682e09d5a1b6dd9b033310b7/img/foodbackground@2x.png"
               />
-
               <img
                 className="food-front"
                 alt="Food front"
-                src="/img/foodfront-3.png"
+                src="https://cdn.animaapp.com/projects/682af909abc7ae9309e7e566/releases/682e09d5a1b6dd9b033310b7/img/foodfront.png"
               />
             </div>
           </div>
 
           <div className="review-star-grid">
-            <StarFrame className="star-frame-instance" />
-            <StarFrame className="star-frame-instance" />
-            <StarFrame className="star-frame-instance" />
-            <StarFrame className="star-frame-instance" />
-            <StarFrame className="star-frame-instance" />
+            {[...Array(5)].map((_, i) => (
+              <StarFrame key={i} className="star-frame-instance" />
+            ))}
           </div>
 
           <div className="review-text" />
@@ -43,19 +39,17 @@ export const ReviewFrame = () => {
               <img
                 className="UI-customer"
                 alt="Ui customer"
-                src="/img/ui-customer-icon1-1-6.png"
+                src="https://cdn.animaapp.com/projects/682af909abc7ae9309e7e566/releases/682d0bb2ad49702e312281a3/img/ui-customer-icon1-1.png"
               />
-
               <img
                 className="UI-customer"
                 alt="Ui customer"
-                src="/img/ui-customer-icon3-1-6.png"
+                src="https://cdn.animaapp.com/projects/682af909abc7ae9309e7e566/releases/682d0bb2ad49702e312281a3/img/ui-customer-icon3-1.png"
               />
-
               <img
                 className="UI-customer"
                 alt="Ui customer"
-                src="/img/ui-customer-icon5-1-6.png"
+                src="https://cdn.animaapp.com/projects/682af909abc7ae9309e7e566/releases/682d0bb2ad49702e312281a3/img/ui-customer-icon5-1.png"
               />
             </div>
           </div>
@@ -63,45 +57,44 @@ export const ReviewFrame = () => {
 
         <div className="customer-display">
           <div className="text-wrapper">Realcost_MorronError</div>
-
           <img
             className="customer-image"
             alt="Customer image"
-            src="/img/customerimage-3.png"
+            src="https://cdn.animaapp.com/projects/682af909abc7ae9309e7e566/releases/682dd5f99fc6c14743fad6a5/img/customerimage@2x.png"
           />
         </div>
 
         <div className="food-icon-group-2">
-          <img className="img" alt="Food icon" src="/img/foodicon-3.png" />
-
+          <img
+            className="img"
+            alt="Food icon"
+            src="https://cdn.animaapp.com/projects/682af909abc7ae9309e7e566/releases/682dd5f99fc6c14743fad6a5/img/foodicon.png"
+          />
           <p className="p">Strawberry And Chocolate Soft serve</p>
-
           <div className="order-header">Order</div>
         </div>
 
-        <Link to="/order-frame">
-          <button className="back-button">
-            <button className="overlap-group-wrapper">
-              <div className="div-wrapper">
-                <div className="text-wrapper-2">Back</div>
-              </div>
-            </button>
-          </button>
-        </Link>
+        <button className="back-button" onClick={onBack}>
+          <div className="overlap-group-wrapper">
+            <div className="div-wrapper">
+              <div className="text-wrapper-2">Back</div>
+            </div>
+          </div>
+        </button>
 
-        <Link to="/queue-frame">
-          <button className="confirm-button">
-            <Link to="/queue-frame">
-              <button className="overlap-group-wrapper">
-                <div className="overlap-group-2">
-                  <div className="text-wrapper-2">Next</div>
-                </div>
-              </button>
-            </Link>
-          </button>
-        </Link>
+        <button className="confirm-button" onClick={onNext}>
+          <div className="overlap-group-wrapper">
+            <div className="overlap-group-2">
+              <div className="text-wrapper-2">Next</div>
+            </div>
+          </div>
+        </button>
 
-        <div className="close-button" />
+        <div
+          className="close-button"
+          onClick={onClose}
+          style={{ cursor: "pointer" }}
+        />
       </div>
     </div>
   );

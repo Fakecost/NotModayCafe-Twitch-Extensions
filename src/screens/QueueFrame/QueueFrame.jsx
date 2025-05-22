@@ -3,21 +3,27 @@ import { Link } from "react-router-dom";
 import { QueueItem } from "../../components/QueueItem";
 import "./style.css";
 
-export const QueueFrame = () => {
+export const QueueFrame = ({ onClose, onJoinClick }) => {
   return (
     <div className="queue-frame">
       <div className="div-2">
-        <div className="close-button-2" />
+        <div
+          className="close-button-2"
+          onClick={onClose}
+          style={{ cursor: "pointer" }}
+        />
 
-        <Link to="/join-frame">
-          <button className="join-button">
-            <button className="button">
-              <div className="overlap-group-3">
-                <div className="text-wrapper-3">Join</div>
-              </div>
-            </button>
-          </button>
-        </Link>
+        <button
+          className="join-button"
+          onClick={onJoinClick}
+          style={{ cursor: "pointer" }}
+        >
+          <div className="button">
+            <div className="overlap-group-3">
+              <div className="text-wrapper-3">Join</div>
+            </div>
+          </div>
+        </button>
 
         <div className="grid">
           <div className="container">
