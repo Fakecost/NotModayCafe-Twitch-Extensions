@@ -1,8 +1,18 @@
 import React from "react";
 import { FoodButton } from "../../components/FoodButton";
+import { availableSkins } from "../../Data";
 import "./style.css";
 
-export const OrderFrame = ({ onClose, onNext, onBack }) => {
+const CDN = "https://sunny.bixmy.party/cdn/images/Customer/";
+
+export const OrderFrame = ({ onClose, onNext, onBack, selectedSkin }) => {
+  const skin =
+    selectedSkin && selectedSkin.file
+      ? selectedSkin
+      : availableSkins[Math.floor(Math.random() * availableSkins.length)];
+
+  const customerImage = `${CDN}${skin.file}`;
+
   return (
     <div className="order-frame">
       <div className="div-3">
@@ -52,17 +62,17 @@ export const OrderFrame = ({ onClose, onNext, onBack }) => {
               <img
                 className="UI-customer-icon"
                 alt="UI customer"
-                src="https://cdn.animaapp.com/projects/682af909abc7ae9309e7e566/releases/682d0bb2ad49702e312281a3/img/ui-customer-icon1-1.png"
+                src="https://sunny.bixmy.party/cdn/images/sprite-extension/UI-Customer-Icon2.png"
               />
               <img
                 className="UI-customer-icon"
                 alt="UI customer"
-                src="https://cdn.animaapp.com/projects/682af909abc7ae9309e7e566/releases/682d0bb2ad49702e312281a3/img/ui-customer-icon3-1-1.png"
+                src="https://sunny.bixmy.party/cdn/images/sprite-extension/UI-Customer-Icon3.png"
               />
               <img
                 className="UI-customer-icon"
                 alt="UI customer"
-                src="https://cdn.animaapp.com/projects/682af909abc7ae9309e7e566/releases/682d0bb2ad49702e312281a3/img/ui-customer-icon5-1-1.png"
+                src="https://sunny.bixmy.party/cdn/images/sprite-extension/UI-Customer-Icon5.png"
               />
             </div>
           </div>
@@ -73,7 +83,7 @@ export const OrderFrame = ({ onClose, onNext, onBack }) => {
           <img
             className="customer-image-2"
             alt="Customer"
-            src="https://cdn.animaapp.com/projects/682af909abc7ae9309e7e566/releases/682dd5f99fc6c14743fad6a5/img/customerimage@2x.png"
+            src={customerImage}
           />
         </div>
 

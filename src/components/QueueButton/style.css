@@ -13,4 +13,6 @@
 .queue-button:hover {
   background-image: url(../../../static/img/ui-general-tab3-1-17.png);
   top: 156px;
+  transform: scale(1.05);
+  transition: transform 0.2s ease;
 }

@@ -1,4 +1,4 @@
-// ✅ Main.jsx (แก้ใหม่ทั้งหมด)
+// ✅ Main.jsx (อัปเดตให้ส่ง selectedSkin ระหว่างเฟรม)
 import React, { useState } from "react";
 import { CustomerButton } from "../../components/CustomerButton";
 import { QueueButton } from "../../components/QueueButton";
@@ -12,6 +12,7 @@ import "./style.css";
 
 export const Main = () => {
   const [activeFrame, setActiveFrame] = useState(null);
+  const [selectedSkin, setSelectedSkin] = useState(null); // ✅ เก็บตัวละครที่เลือก
 
   return (
     <div className="main">
@@ -39,7 +40,10 @@ export const Main = () => {
         <div className="overlay">
           <JoinFrame
             onClose={() => setActiveFrame(null)}
-            onNext={() => setActiveFrame("order")}
+            onNext={(skin) => {
+              setSelectedSkin(skin); // ✅ รับ selectedSkin จาก JoinFrame
+              setActiveFrame("order");
+            }}
           />
         </div>
       )}
@@ -47,6 +51,7 @@ export const Main = () => {
       {activeFrame === "order" && (
         <div className="overlay">
           <OrderFrame
+            selectedSkin={selectedSkin} // ✅ ส่งต่อ selectedSkin
             onClose={() => setActiveFrame(null)}
             onBack={() => setActiveFrame("join")}
             onNext={() => setActiveFrame("review")}

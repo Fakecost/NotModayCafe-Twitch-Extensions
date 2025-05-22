@@ -1,18 +1,21 @@
-/*
-We're constantly improving the code you see. 
-Please share your feedback here: https://form.asana.com/?k=uvp-HPgd3_hyoXRBw1IcNg&d=1152665201300829
-*/
-
 import PropTypes from "prop-types";
 import React from "react";
 import "./style.css";
 
 export const CustomerButtonWrapper = ({
-  className,
+  className = "",
   customerIcon = "/img/customericon-12.png",
+  isSelected = false,
+  onClick,
 }) => {
   return (
-    <div className={`customer-button-wrapper ${className}`}>
+    <div
+      className={`customer-button-wrapper ${className} ${
+        isSelected ? "selected" : ""
+      }`}
+      onClick={onClick}
+      style={{ cursor: "pointer" }}
+    >
       <img className="customer-icon" alt="Customer icon" src={customerIcon} />
     </div>
   );
@@ -20,4 +23,6 @@ export const CustomerButtonWrapper = ({
 
 CustomerButtonWrapper.propTypes = {
   customerIcon: PropTypes.string,
+  isSelected: PropTypes.bool,
+  onClick: PropTypes.func,
 };
