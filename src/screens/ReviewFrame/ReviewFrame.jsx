@@ -2,10 +2,16 @@ import React from "react";
 import { StarFrame } from "../../components/StarFrame";
 import "./style.css";
 
-export const ReviewFrame = ({ onClose, onBack, onNext }) => {
+export const ReviewFrame = ({ onBack, onNext, onClose }) => {
   return (
     <div className="review-frame">
       <div className="div-2">
+        <div
+          className="close-button"
+          onClick={onClose}
+          style={{ cursor: "pointer" }}
+        />
+
         <div className="review-display">
           <div className="food-big-display">
             <div className="overlap-group">
@@ -14,6 +20,7 @@ export const ReviewFrame = ({ onClose, onBack, onNext }) => {
                 alt="Food background"
                 src="https://cdn.animaapp.com/projects/682af909abc7ae9309e7e566/releases/682e09d5a1b6dd9b033310b7/img/foodbackground@2x.png"
               />
+
               <img
                 className="food-front"
                 alt="Food front"
@@ -57,9 +64,10 @@ export const ReviewFrame = ({ onClose, onBack, onNext }) => {
 
         <div className="customer-display">
           <div className="text-wrapper">Realcost_MorronError</div>
+
           <img
             className="customer-image"
-            alt="Customer image"
+            alt="Customer"
             src="https://cdn.animaapp.com/projects/682af909abc7ae9309e7e566/releases/682dd5f99fc6c14743fad6a5/img/customerimage@2x.png"
           />
         </div>
@@ -74,7 +82,11 @@ export const ReviewFrame = ({ onClose, onBack, onNext }) => {
           <div className="order-header">Order</div>
         </div>
 
-        <button className="back-button" onClick={onBack}>
+        <button
+          className="back-button"
+          onClick={onBack}
+          style={{ cursor: "pointer" }}
+        >
           <div className="overlap-group-wrapper">
             <div className="div-wrapper">
               <div className="text-wrapper-2">Back</div>
@@ -82,19 +94,15 @@ export const ReviewFrame = ({ onClose, onBack, onNext }) => {
           </div>
         </button>
 
-        <button className="confirm-button" onClick={onNext}>
-          <div className="overlap-group-wrapper">
-            <div className="overlap-group-2">
-              <div className="text-wrapper-2">Next</div>
-            </div>
+        <button
+          className="confirm-button"
+          onClick={onNext}
+          style={{ cursor: "pointer" }}
+        >
+          <div className="overlap-group-2">
+            <div className="text-wrapper-2">Next</div>
           </div>
         </button>
-
-        <div
-          className="close-button"
-          onClick={onClose}
-          style={{ cursor: "pointer" }}
-        />
       </div>
     </div>
   );
