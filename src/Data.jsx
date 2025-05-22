@@ -112,26 +112,3 @@ export const availableSkins = [
     file: "Character_Customer_Zebra1_Idle-export.png",
   },
 ];
-
-export const availableFoods = [
-  // Foods
-  ...[...Array(200)].map((_, i) => ({
-    id: `food-${i + 1}`,
-    name: `Food ${i + 1}`,
-    file: `PNG-Foods/Food-${i + 1}.png`,
-  })),
-
-  // Drinks
-  ...[...Array(200)].map((_, i) => ({
-    id: `drink-${i + 1}`,
-    name: `Drink ${i + 1}`,
-    file: `PNG-Drinks/Drink-${i + 1}.png`,
-  })),
-
-  // Desserts
-  ...[...Array(200)].map((_, i) => ({
-    id: `dessert-${i + 1}`,
-    name: `Dessert ${i + 1}`,
-    file: `PNG-Desserts/Dessert-${i + 1}.png`,
-  })),
-];

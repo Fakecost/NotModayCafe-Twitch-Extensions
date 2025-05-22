@@ -1,6 +1,7 @@
 import React from "react";
 import { FoodButton } from "../../components/FoodButton";
 import { availableSkins } from "../../Data";
+import { availableFoods } from "../../Data.generated";
 import "./style.css";
 
 const CDN = "https://sunny.bixmy.party/cdn/images/Customer/";
