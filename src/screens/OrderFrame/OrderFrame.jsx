@@ -18,11 +18,13 @@ export const OrderFrame = ({
     selectedSkin && selectedSkin.file
       ? selectedSkin
       : availableSkins[Math.floor(Math.random() * availableSkins.length)];
-  const customerImage = ${CDN}${skin.file};
+  const customerImage = `${CDN}${skin.file}`;
 
   useEffect(() => {
-    useSelectFirstFood(availableFoods, setSelectedFood);
-  }, []);
+    if (availableFoods.length > 0) {
+      setSelectedFood(availableFoods[0]);
+    }
+  }, [setSelectedFood]);
 
   return (
     <div className="order-frame">
@@ -35,7 +37,7 @@ export const OrderFrame = ({
         <div className="food-grid">
           <div className="container-2">
             {availableFoods.map((food) => {
-              const imageUrl = https://sunny.bixmy.party/cdn/images/${food.file};
+              const imageUrl = `https://sunny.bixmy.party/cdn/images/${food.file}`;
               const isSelected = selectedFood?.id === food.id;
               return (
                 <FoodButton
@@ -113,7 +115,7 @@ export const OrderFrame = ({
             alt="Food icon"
             src={
               selectedFood?.file
-                ? https://sunny.bixmy.party/cdn/images/${selectedFood.file}
+                ? `https://sunny.bixmy.party/cdn/images/${selectedFood.file}`
                 : "https://cdn.animaapp.com/projects/682af909abc7ae9309e7e566/releases/682dd5f99fc6c14743fad6a5/img/foodicon.png"
             }
           />
