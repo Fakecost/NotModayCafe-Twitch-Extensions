@@ -54,11 +54,13 @@
 }
 
 .review-frame .food-front {
-  height: 308px;
-  left: 0;
-  position: absolute;
-  top: 0;
   width: 548px;
+  height: 308px;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  object-fit: contain;
 }
 
 .review-frame .review-star-grid {

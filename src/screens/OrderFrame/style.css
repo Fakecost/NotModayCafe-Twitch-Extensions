@@ -17,106 +17,34 @@
 
 .order-frame .food-grid {
   background-image: url(../../../static/img/reviewdisplay-3.png);
-  background-position: 50% 50%;
+  background-position: center;
   background-size: cover;
-  height: 459px;
+  height: 459px; /* ✅ คงไว้ */
   left: 150px;
-  position: absolute;
   top: 113px;
   width: 413px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow: hidden; /* ✅ กันล้นแนวนอน */
 }
 
 .order-frame .container-2 {
-  height: 444px;
-  left: 9px;
-  position: relative;
-  top: 8px;
-  width: 374px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* ✅ สองคอลัมน์ */
+  gap: 2px 2px; /* ✅ เว้นระยะกำลังดี */
+  padding: 6px 6px 2px 6px;
+  height: 453px; /* ✅ พอดีภายใน food-grid (459 - padding = 447) */
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  scroll-padding-top: 30px;
+  max-height: 100%;
 }
 
-.order-frame .food-button-instance {
-  left: 0 !important;
-  position: absolute !important;
-  top: 0 !important;
-}
 
-.order-frame .food-button-2 {
-  left: 187px !important;
-  position: absolute !important;
-  top: 0 !important;
-}
-
-.order-frame .food-button-3 {
-  left: 0 !important;
-  position: absolute !important;
-  top: 63px !important;
-}
-
-.order-frame .food-button-4 {
-  left: 187px !important;
-  position: absolute !important;
-  top: 63px !important;
-}
-
-.order-frame .food-button-5 {
-  left: 0 !important;
-  position: absolute !important;
-  top: 127px !important;
-}
-
-.order-frame .food-button-6 {
-  left: 187px !important;
-  position: absolute !important;
-  top: 127px !important;
-}
-
-.order-frame .food-button-7 {
-  left: 0 !important;
-  position: absolute !important;
-  top: 190px !important;
-}
-
-.order-frame .food-button-8 {
-  left: 187px !important;
-  position: absolute !important;
-  top: 190px !important;
-}
-
-.order-frame .food-button-9 {
-  left: 0 !important;
-  position: absolute !important;
-  top: 254px !important;
-}
-
-.order-frame .food-button-10 {
-  left: 187px !important;
-  position: absolute !important;
-  top: 254px !important;
-}
-
-.order-frame .food-button-11 {
-  left: 0 !important;
-  position: absolute !important;
-  top: 317px !important;
-}
-
-.order-frame .food-button-12 {
-  left: 187px !important;
-  position: absolute !important;
-  top: 317px !important;
-}
-
-.order-frame .food-button-13 {
-  left: 0 !important;
-  position: absolute !important;
-  top: 381px !important;
-}
-
-.order-frame .food-button-14 {
-  left: 187px !important;
-  position: absolute !important;
-  top: 381px !important;
-}
 
 .order-frame .back-button-wrapper {
   all: unset;

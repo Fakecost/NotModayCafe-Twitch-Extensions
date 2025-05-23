@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FoodButton } from "../../components/FoodButton";
 import { availableSkins } from "../../Data";
 import { availableFoods } from "../../Data.generated";
@@ -6,13 +6,23 @@ import "./style.css";
 
 const CDN = "https://sunny.bixmy.party/cdn/images/Customer/";
 
-export const OrderFrame = ({ onClose, onNext, onBack, selectedSkin }) => {
+export const OrderFrame = ({
+  onClose,
+  onNext,
+  onBack,
+  selectedSkin,
+  selectedFood,
+  setSelectedFood,
+}) => {
   const skin =
     selectedSkin && selectedSkin.file
       ? selectedSkin
       : availableSkins[Math.floor(Math.random() * availableSkins.length)];
+  const customerImage = ${CDN}${skin.file};
 
-  const customerImage = `${CDN}${skin.file}`;
+  useEffect(() => {
+    useSelectFirstFood(availableFoods, setSelectedFood);
+  }, []);
 
   return (
     <div className="order-frame">
@@ -22,12 +32,22 @@ export const OrderFrame = ({ onClose, onNext, onBack, selectedSkin }) => {
           onClick={onClose}
           style={{ cursor: "pointer" }}
         />
-
         <div className="food-grid">
           <div className="container-2">
-            {Array.from({ length: 14 }).map((_, index) => (
-              <FoodButton key={index} className={`food-button-${index + 1}`} />
-            ))}
+            {availableFoods.map((food) => {
+              const imageUrl = https://sunny.bixmy.party/cdn/images/${food.file};
+              const isSelected = selectedFood?.id === food.id;
+              return (
+                <FoodButton
+                  key={food.id}
+                  className="food-button"
+                  name={food.name}
+                  image={imageUrl}
+                  onClick={() => setSelectedFood(food)}
+                  isSelected={isSelected}
+                />
+              );
+            })}
           </div>
         </div>
 
@@ -57,18 +77,17 @@ export const OrderFrame = ({ onClose, onNext, onBack, selectedSkin }) => {
 
         <div className="overlap-3">
           <div className="order-title">Order your Dish</div>
-
           <div className="status-UI-2">
             <div className="main-button-3">
               <img
                 className="UI-customer-icon"
                 alt="UI customer"
-                src="https://sunny.bixmy.party/cdn/images/sprite-extension/UI-Customer-Icon2.png"
+                src="https://sunny.bixmy.party/cdn/images/sprite-extension/UI-Customer-Icon1.png"
               />
               <img
                 className="UI-customer-icon"
                 alt="UI customer"
-                src="https://sunny.bixmy.party/cdn/images/sprite-extension/UI-Customer-Icon3.png"
+                src="https://sunny.bixmy.party/cdn/images/sprite-extension/UI-Customer-Icon4.png"
               />
               <img
                 className="UI-customer-icon"
@@ -92,9 +111,15 @@ export const OrderFrame = ({ onClose, onNext, onBack, selectedSkin }) => {
           <img
             className="food-icon-2"
             alt="Food icon"
-            src="https://cdn.animaapp.com/projects/682af909abc7ae9309e7e566/releases/682dd5f99fc6c14743fad6a5/img/foodicon.png"
+            src={
+              selectedFood?.file
+                ? https://sunny.bixmy.party/cdn/images/${selectedFood.file}
+                : "https://cdn.animaapp.com/projects/682af909abc7ae9309e7e566/releases/682dd5f99fc6c14743fad6a5/img/foodicon.png"
+            }
           />
-          <p className="food-name-2">Strawberry And Chocolate Soft serve</p>
+          <p className="food-name-2">
+            {selectedFood?.name || "Strawberry And Chocolate Soft serve"}
+          </p>
           <div className="order-header-2">Order</div>
         </div>
       </div>

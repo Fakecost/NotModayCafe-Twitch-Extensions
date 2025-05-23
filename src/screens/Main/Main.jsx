@@ -1,4 +1,3 @@
-// ✅ Main.jsx (อัปเดตให้ส่ง selectedSkin ระหว่างเฟรม)
 import React, { useState } from "react";
 import { CustomerButton } from "../../components/CustomerButton";
 import { QueueButton } from "../../components/QueueButton";
@@ -12,7 +11,8 @@ import "./style.css";
 
 export const Main = () => {
   const [activeFrame, setActiveFrame] = useState(null);
-  const [selectedSkin, setSelectedSkin] = useState(null); // ✅ เก็บตัวละครที่เลือก
+  const [selectedSkin, setSelectedSkin] = useState(null);
+  const [selectedFood, setSelectedFood] = useState(null);
 
   return (
     <div className="main">
@@ -41,7 +41,7 @@ export const Main = () => {
           <JoinFrame
             onClose={() => setActiveFrame(null)}
             onNext={(skin) => {
-              setSelectedSkin(skin); // ✅ รับ selectedSkin จาก JoinFrame
+              setSelectedSkin(skin);
               setActiveFrame("order");
             }}
           />
@@ -51,7 +51,9 @@ export const Main = () => {
       {activeFrame === "order" && (
         <div className="overlay">
           <OrderFrame
-            selectedSkin={selectedSkin} // ✅ ส่งต่อ selectedSkin
+            selectedSkin={selectedSkin}
+            selectedFood={selectedFood}
+            setSelectedFood={setSelectedFood}
             onClose={() => setActiveFrame(null)}
             onBack={() => setActiveFrame("join")}
             onNext={() => setActiveFrame("review")}
@@ -62,6 +64,8 @@ export const Main = () => {
       {activeFrame === "review" && (
         <div className="overlay">
           <ReviewFrame
+            selectedSkin={selectedSkin}
+            selectedFood={selectedFood}
             onClose={() => setActiveFrame(null)}
             onBack={() => setActiveFrame("order")}
             onNext={() => setActiveFrame("queue")}

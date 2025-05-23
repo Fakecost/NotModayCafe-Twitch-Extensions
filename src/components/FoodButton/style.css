@@ -1,54 +1,55 @@
 .food-button {
-  align-items: center;
-  background-image: url(../../../static/img/queue-item-3.png);
-  background-position: 50% 50%;
+  background-image: url(https://sunny.bixmy.party/cdn/images/sprite-extension/UI-Customer-Tab4.png); /* ใช้ texture เดิม */
+  background-position: center;
   background-size: cover;
+  height: 62px;
+  width: 100%;
   display: flex;
-  gap: 10px;
-  height: 63px;
-  left: 2223px;
-  padding: 2px 3px;
+  align-items: center;
+  padding: 4px 6px;
+  box-sizing: border-box;
   position: relative;
-  top: 613px;
-  width: 187px;
+  gap: 8px;
+  cursor: pointer;
+}
+.food-button:hover {
+  background-image: url(https://sunny.bixmy.party/cdn/images/sprite-extension/UI-Customer-Tab4-Selected.png); /* 🔁 เปลี่ยนตามภาพที่คุณให้ */
 }
 
-.food-button .food-icon-group {
-  background-image: url(../../../static/img/foodicongroup-7.png);
-  background-position: 50% 50%;
+.food-button.selected {
+  background-image: url(https://sunny.bixmy.party/cdn/images/sprite-extension/UI-Customer-Tab4-Selected.png);
+}
+
+.food-icon-group {
+  background-image: url(../../../static/img/foodicongroup-7.png); /* กรอบสีเขียวจาง */
   background-size: cover;
+  width: 53px;
   height: 59px;
   position: relative;
-  width: 53px;
 }
 
-.food-button .food-icon {
+.food-icon {
+  width: 45px;
   height: 46px;
-  left: 4px;
-  object-fit: cover;
   position: absolute;
   top: 4px;
-  width: 45px;
+  left: 4px;
+  image-rendering: pixelated;
+  object-fit: contain;
 }
 
-.food-button .food-name-wrapper {
-  align-items: flex-start;
+.food-name-wrapper {
+  width: 110px;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
-  width: 109px;
+  align-items: center;
+  justify-content: flex-start;
 }
 
-.food-button .food-name {
-  color: #000000;
-  font-family: "Noto Sans", Helvetica;
+.food-name {
+  font-family: "Noto Sans", Helvetica, sans-serif;
   font-size: 10px;
   font-weight: 400;
-  letter-spacing: 0;
-  line-height: normal;
-  margin-right: -1px;
-  margin-top: -1px;
-  position: relative;
+  color: black;
+  margin: 0;
   width: 110px;
 }

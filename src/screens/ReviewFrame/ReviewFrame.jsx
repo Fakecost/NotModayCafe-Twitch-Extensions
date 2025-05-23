@@ -1,8 +1,31 @@
 import React from "react";
 import { StarFrame } from "../../components/StarFrame";
+import { availableFoods } from "../../Data.generated";
 import "./style.css";
 
-export const ReviewFrame = ({ onBack, onNext, onClose }) => {
+const CDN = "https://sunny.bixmy.party/cdn/images/";
+const CUSTOMER_CDN = `${CDN}Customer/`;
+
+export const ReviewFrame = ({
+  onBack,
+  onNext,
+  onClose,
+  selectedSkin,
+  selectedFood,
+}) => {
+  const customerImage = selectedSkin
+    ? `${CUSTOMER_CDN}${selectedSkin.file}`
+    : "";
+
+  const fallbackImage =
+    "https://cdn.animaapp.com/projects/682af909abc7ae9309e7e566/releases/682e09d5a1b6dd9b033310b7/img/foodfront.png";
+
+  const bigImage = selectedFood?.bigFile
+    ? `${CDN}${selectedFood.bigFile}`
+    : fallbackImage;
+
+  const bgImage = selectedFood?.bg ? `${CDN}${selectedFood.bg}` : "";
+
   return (
     <div className="review-frame">
       <div className="div">
@@ -18,13 +41,9 @@ export const ReviewFrame = ({ onBack, onNext, onClose }) => {
               <img
                 className="food-background"
                 alt="Food background"
-                src="https://cdn.animaapp.com/projects/682af909abc7ae9309e7e566/releases/682e09d5a1b6dd9b033310b7/img/foodbackground@2x.png"
+                src={bgImage}
               />
-              <img
-                className="food-front"
-                alt="Food front"
-                src="https://cdn.animaapp.com/projects/682af909abc7ae9309e7e566/releases/682e09d5a1b6dd9b033310b7/img/foodfront.png"
-              />
+              <img className="food-front" alt="Food front" src={bigImage} />
             </div>
           </div>
 
@@ -39,22 +58,21 @@ export const ReviewFrame = ({ onBack, onNext, onClose }) => {
 
         <div className="overlap">
           <div className="review-title">Review</div>
-
           <div className="status-UI">
             <div className="main-button">
               <img
                 className="UI-customer"
-                alt="Ui customer"
+                alt="UI customer"
                 src="https://cdn.animaapp.com/projects/682af909abc7ae9309e7e566/releases/682d0bb2ad49702e312281a3/img/ui-customer-icon1-1.png"
               />
               <img
                 className="UI-customer"
-                alt="Ui customer"
+                alt="UI customer"
                 src="https://cdn.animaapp.com/projects/682af909abc7ae9309e7e566/releases/682d0bb2ad49702e312281a3/img/ui-customer-icon3-1.png"
               />
               <img
                 className="UI-customer"
-                alt="Ui customer"
+                alt="UI customer"
                 src="https://cdn.animaapp.com/projects/682af909abc7ae9309e7e566/releases/682d0bb2ad49702e312281a3/img/ui-customer-icon5-1.png"
               />
             </div>
@@ -66,7 +84,7 @@ export const ReviewFrame = ({ onBack, onNext, onClose }) => {
           <img
             className="customer-image"
             alt="Customer image"
-            src="https://cdn.animaapp.com/projects/682af909abc7ae9309e7e566/releases/682dd5f99fc6c14743fad6a5/img/customerimage@2x.png"
+            src={customerImage}
           />
         </div>
 
@@ -74,9 +92,15 @@ export const ReviewFrame = ({ onBack, onNext, onClose }) => {
           <img
             className="img"
             alt="Food icon"
-            src="https://cdn.animaapp.com/projects/682af909abc7ae9309e7e566/releases/682dd5f99fc6c14743fad6a5/img/foodicon.png"
+            src={
+              selectedFood?.file
+                ? `${CDN}${selectedFood.file}`
+                : "https://cdn.animaapp.com/projects/682af909abc7ae9309e7e566/releases/682dd5f99fc6c14743fad6a5/img/foodicon.png"
+            }
           />
-          <p className="p">Strawberry And Chocolate Soft serve</p>
+          <p className="p">
+            {selectedFood?.name || "Strawberry And Chocolate Soft serve"}
+          </p>
           <div className="order-header">Order</div>
         </div>
 
