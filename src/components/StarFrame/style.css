@@ -1,17 +1,18 @@
 .star-frame {
-  background-image: url(../../../static/img/ui-review-icon1-1-6.png);
-  background-position: 50% 50%;
-  background-size: cover;
-  height: 32px;
-  left: 2223px;
-  position: relative;
-  top: 696px;
   width: 32px;
+  height: 32px;
+  cursor: pointer;
+  position: relative;
 }
 
-.star-frame .inacctive {
-  background-image: url(../../../static/img/ui-review-icon1-1-7.png);
-  background-position: 50% 50%;
+.star-inner {
+  width: 100%;
+  height: 100%;
+  background-image: url(https://sunny.bixmy.party/cdn/images/sprite-extension/UI-Review-Icon1.png); /* ⭐ ไม่ active */
+  background-position: center;
   background-size: cover;
-  height: 32px;
+}
+
+.star-frame.active .star-inner {
+  background-image: url(https://sunny.bixmy.party/cdn/images/sprite-extension/UI-Review-Icon2.png); /* ⭐ active */
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { StarFrame } from "../../components/StarFrame";
 import { availableFoods } from "../../Data.generated";
 import "./style.css";
@@ -13,6 +13,8 @@ export const ReviewFrame = ({
   selectedSkin,
   selectedFood,
 }) => {
+  const [rating, setRating] = useState(1); // ⭐ เริ่มต้นที่ 1 เสมอ
+
   const customerImage = selectedSkin
     ? `${CUSTOMER_CDN}${selectedSkin.file}`
     : "";
@@ -49,7 +51,11 @@ export const ReviewFrame = ({
 
           <div className="review-star-grid">
             {[...Array(5)].map((_, i) => (
-              <StarFrame key={i} className="star-frame-instance" />
+              <StarFrame
+                key={i}
+                isActive={i < rating}
+                onClick={() => setRating(i + 1)}
+              />
             ))}
           </div>
 
@@ -104,11 +110,7 @@ export const ReviewFrame = ({
           <div className="order-header">Order</div>
         </div>
 
-        <button
-          className="back-button"
-          onClick={onBack}
-          style={{ cursor: "pointer" }}
-        >
+        <button className="back-button" onClick={onBack}>
           <div className="overlap-group-wrapper">
             <div className="div-wrapper">
               <div className="text-wrapper-2">Back</div>
@@ -116,11 +118,7 @@ export const ReviewFrame = ({
           </div>
         </button>
 
-        <button
-          className="confirm-button"
-          onClick={onNext}
-          style={{ cursor: "pointer" }}
-        >
+        <button className="confirm-button" onClick={onNext}>
           <div className="overlap-group-2">
             <div className="text-wrapper-2">Next</div>
           </div>
