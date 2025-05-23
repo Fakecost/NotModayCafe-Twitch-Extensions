@@ -92,6 +92,23 @@
   width: 344px;
 }
 
+.review-frame .review-textarea {
+  position: absolute;
+  top: 333px;
+  left: 35px;
+  width: 344px;
+  height: 86px;
+  resize: none;
+  font-family: "Noto Sans", sans-serif;
+  font-size: 14px;
+  padding: 8px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: #000;
+  z-index: 1;
+}
+
 .review-frame .overlap {
   height: 96px;
   left: 155px;

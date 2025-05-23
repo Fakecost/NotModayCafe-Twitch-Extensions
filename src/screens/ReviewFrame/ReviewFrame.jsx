@@ -13,7 +13,8 @@ export const ReviewFrame = ({
   selectedSkin,
   selectedFood,
 }) => {
-  const [rating, setRating] = useState(1); // ⭐ เริ่มต้นที่ 1 เสมอ
+  const [rating, setRating] = useState(1);
+  const [reviewText, setReviewText] = useState("");
 
   const customerImage = selectedSkin
     ? `${CUSTOMER_CDN}${selectedSkin.file}`
@@ -39,14 +40,19 @@ export const ReviewFrame = ({
 
         <div className="review-display">
           <div className="food-big-display">
-            <div className="overlap-group">
-              <img
-                className="food-background"
-                alt="Food background"
-                src={bgImage}
-              />
-              <img className="food-front" alt="Food front" src={bigImage} />
-            </div>
+            <img
+              className="food-background"
+              alt="Food background"
+              src={bigImage}
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                maxWidth: "100%",
+                maxHeight: "100%",
+              }}
+            />
           </div>
 
           <div className="review-star-grid">
@@ -59,7 +65,15 @@ export const ReviewFrame = ({
             ))}
           </div>
 
-          <div className="review-text" />
+          <div className="review-text-wrapper">
+            <textarea
+              className="review-textarea"
+              value={reviewText}
+              onChange={(e) => setReviewText(e.target.value)}
+              maxLength={100}
+              placeholder="Write your review here (max 100 characters)..."
+            />
+          </div>
         </div>
 
         <div className="overlap">
