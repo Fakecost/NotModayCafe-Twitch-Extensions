@@ -5,7 +5,7 @@ import "./style.css";
 export const ReviewFrame = ({ onBack, onNext, onClose }) => {
   return (
     <div className="review-frame">
-      <div className="div-2">
+      <div className="div">
         <div
           className="close-button"
           onClick={onClose}
@@ -20,7 +20,6 @@ export const ReviewFrame = ({ onBack, onNext, onClose }) => {
                 alt="Food background"
                 src="https://cdn.animaapp.com/projects/682af909abc7ae9309e7e566/releases/682e09d5a1b6dd9b033310b7/img/foodbackground@2x.png"
               />
-
               <img
                 className="food-front"
                 alt="Food front"
@@ -64,10 +63,9 @@ export const ReviewFrame = ({ onBack, onNext, onClose }) => {
 
         <div className="customer-display">
           <div className="text-wrapper">Realcost_MorronError</div>
-
           <img
             className="customer-image"
-            alt="Customer"
+            alt="Customer image"
             src="https://cdn.animaapp.com/projects/682af909abc7ae9309e7e566/releases/682dd5f99fc6c14743fad6a5/img/customerimage@2x.png"
           />
         </div>
