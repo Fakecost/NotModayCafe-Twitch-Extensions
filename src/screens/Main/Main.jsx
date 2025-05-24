@@ -22,8 +22,11 @@ export const Main = () => {
             className="design-component-instance-node"
             onClick={() => setActiveFrame("queue")}
           />
-          <CustomerButton className="design-component-instance-node" />
-          <StaffButton className="design-component-instance-node" />
+          <CustomerButton
+            className="design-component-instance-node"
+            onClick={() => setActiveFrame("join")}
+          />
+          {false && <StaffButton className="design-component-instance-node" />}
         </div>
       </div>
 
