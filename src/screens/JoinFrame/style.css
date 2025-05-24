@@ -87,155 +87,20 @@
 }
 
 .join-frame .container-3 {
-  height: 452px;
-  left: 6px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr); /* 6 columns */
+  gap: 0px;
+  padding: 10px;
+  width: 100%;
+  height: auto;
   position: relative;
-  top: 6px;
-  width: 480px;
+  overflow: visible;
 }
 
 .join-frame .customer-button-instance {
   left: 0 !important;
   position: absolute !important;
   top: 0 !important;
-}
-
-.join-frame .customer-button-2 {
-  left: 80px !important;
-  position: absolute !important;
-  top: 0 !important;
-}
-
-.join-frame .customer-button-3 {
-  left: 160px !important;
-  position: absolute !important;
-  top: 0 !important;
-}
-
-.join-frame .customer-button-4 {
-  left: 240px !important;
-  position: absolute !important;
-  top: 0 !important;
-}
-
-.join-frame .customer-button-5 {
-  left: 320px !important;
-  position: absolute !important;
-  top: 0 !important;
-}
-
-.join-frame .customer-button-6 {
-  left: 400px !important;
-  position: absolute !important;
-  top: 0 !important;
-}
-
-.join-frame .customer-button-7 {
-  left: 0 !important;
-  position: absolute !important;
-  top: 113px !important;
-}
-
-.join-frame .customer-button-8 {
-  left: 80px !important;
-  position: absolute !important;
-  top: 113px !important;
-}
-
-.join-frame .customer-button-9 {
-  left: 160px !important;
-  position: absolute !important;
-  top: 113px !important;
-}
-
-.join-frame .customer-button-10 {
-  left: 240px !important;
-  position: absolute !important;
-  top: 113px !important;
-}
-
-.join-frame .customer-button-11 {
-  left: 320px !important;
-  position: absolute !important;
-  top: 113px !important;
-}
-
-.join-frame .customer-button-12 {
-  left: 400px !important;
-  position: absolute !important;
-  top: 113px !important;
-}
-
-.join-frame .customer-button-13 {
-  left: 0 !important;
-  position: absolute !important;
-  top: 226px !important;
-}
-
-.join-frame .customer-button-14 {
-  left: 80px !important;
-  position: absolute !important;
-  top: 226px !important;
-}
-
-.join-frame .customer-button-15 {
-  left: 160px !important;
-  position: absolute !important;
-  top: 226px !important;
-}
-
-.join-frame .customer-button-16 {
-  left: 240px !important;
-  position: absolute !important;
-  top: 226px !important;
-}
-
-.join-frame .customer-button-17 {
-  left: 320px !important;
-  position: absolute !important;
-  top: 226px !important;
-}
-
-.join-frame .customer-button-18 {
-  left: 400px !important;
-  position: absolute !important;
-  top: 226px !important;
-}
-
-.join-frame .customer-button-19 {
-  left: 0 !important;
-  position: absolute !important;
-  top: 339px !important;
-}
-
-.join-frame .customer-button-20 {
-  left: 80px !important;
-  position: absolute !important;
-  top: 339px !important;
-}
-
-.join-frame .customer-button-21 {
-  left: 160px !important;
-  position: absolute !important;
-  top: 339px !important;
-}
-
-.join-frame .customer-button-22 {
-  left: 240px !important;
-  position: absolute !important;
-  top: 339px !important;
-}
-
-.join-frame .customer-button-23 {
-  left: 320px !important;
-  position: absolute !important;
-  top: 339px !important;
-}
-
-.join-frame .customer-button-24 {
-  left: 400px !important;
-  position: absolute !important;
-  top: 339px !important;
 }
 
 .join-frame .next-button-2 {

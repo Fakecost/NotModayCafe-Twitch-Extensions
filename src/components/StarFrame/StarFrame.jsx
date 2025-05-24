@@ -1,15 +1,13 @@
-/*
-We're constantly improving the code you see. 
-Please share your feedback here: https://form.asana.com/?k=uvp-HPgd3_hyoXRBw1IcNg&d=1152665201300829
-*/
-
 import React from "react";
 import "./style.css";
 
-export const StarFrame = ({ className }) => {
+export const StarFrame = ({ className = "", onClick, isActive }) => {
   return (
-    <div className={`star-frame ${className}`}>
-      <div className="inacctive" />
+    <div
+      className={`star-frame ${isActive ? "active" : ""} ${className}`.trim()}
+      onClick={onClick}
+    >
+      <div className="star-inner" />
     </div>
   );
 };

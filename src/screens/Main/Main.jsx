@@ -1,4 +1,3 @@
-// ✅ Main.jsx (แก้ใหม่ทั้งหมด)
 import React, { useState } from "react";
 import { CustomerButton } from "../../components/CustomerButton";
 import { QueueButton } from "../../components/QueueButton";
@@ -12,6 +11,8 @@ import "./style.css";
 
 export const Main = () => {
   const [activeFrame, setActiveFrame] = useState(null);
+  const [selectedSkin, setSelectedSkin] = useState(null);
+  const [selectedFood, setSelectedFood] = useState(null);
 
   return (
     <div className="main">
@@ -21,8 +22,11 @@ export const Main = () => {
             className="design-component-instance-node"
             onClick={() => setActiveFrame("queue")}
           />
-          <CustomerButton className="design-component-instance-node" />
-          <StaffButton className="design-component-instance-node" />
+          <CustomerButton
+            className="design-component-instance-node"
+            onClick={() => setActiveFrame("join")}
+          />
+          {false && <StaffButton className="design-component-instance-node" />}
         </div>
       </div>
 
@@ -39,7 +43,10 @@ export const Main = () => {
         <div className="overlay">
           <JoinFrame
             onClose={() => setActiveFrame(null)}
-            onNext={() => setActiveFrame("order")}
+            onNext={(skin) => {
+              setSelectedSkin(skin);
+              setActiveFrame("order");
+            }}
           />
         </div>
       )}
@@ -47,6 +54,9 @@ export const Main = () => {
       {activeFrame === "order" && (
         <div className="overlay">
           <OrderFrame
+            selectedSkin={selectedSkin}
+            selectedFood={selectedFood}
+            setSelectedFood={setSelectedFood}
             onClose={() => setActiveFrame(null)}
             onBack={() => setActiveFrame("join")}
             onNext={() => setActiveFrame("review")}
@@ -57,6 +67,8 @@ export const Main = () => {
       {activeFrame === "review" && (
         <div className="overlay">
           <ReviewFrame
+            selectedSkin={selectedSkin}
+            selectedFood={selectedFood}
             onClose={() => setActiveFrame(null)}
             onBack={() => setActiveFrame("order")}
             onNext={() => setActiveFrame("queue")}
