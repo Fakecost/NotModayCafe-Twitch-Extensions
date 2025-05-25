@@ -46,6 +46,55 @@ const getCustomerSpriteStyle = (index) => {
     left: "0px",
   };
 };
+const getFoodImage = (relativePath) => {
+  const clean = relativePath.replace(/^\/+/, "");
+  const match = Object.entries(allImages).find(([key]) =>
+    key.endsWith("/" + clean)
+  );
+  return match?.[1]?.default || "";
+};
+
+const normalize = (p) =>
+  p
+    ?.replace(/^\.?\/?src\//, "")
+    .replace(/^\.\//, "")
+    .replace(/^\/+/, "");
+
+const getSmallFoodSpriteStyle = (index, spritePath) => {
+  if (!index || !spritePath) return {};
+  const SPRITE_WIDTH = 100;
+  const SPRITE_HEIGHT = 100;
+  const SPRITE_COLS_BY_PATH = {
+    "PNG-Foods/SmallFoodSpriteSheet.png": 17,
+    "PNG-Drinks/SmallDrinkSpriteSheet.png": 21,
+    "PNG-Desserts/SmallDessertSpriteSheet.png": 13,
+  };
+  const cleanPath = normalize(spritePath);
+  const cols = SPRITE_COLS_BY_PATH[cleanPath] || 1;
+  const zeroIndex = index - 1;
+
+  const x = (zeroIndex % cols) * SPRITE_WIDTH;
+  const y = Math.floor(zeroIndex / cols) * SPRITE_HEIGHT;
+  const spriteURL = getFoodImage(cleanPath);
+  console.log("🥤 index = ", zeroIndex);
+  console.log("🧼 x = ", x);
+  console.log("🎯 y = ", y);
+
+  return {
+    backgroundImage: `url(${spriteURL})`,
+    backgroundPosition: `-${x}px -${y}px`,
+    backgroundSize: `${cols * SPRITE_WIDTH}px auto`,
+    backgroundRepeat: "no-repeat",
+    imageRendering: "pixelated",
+    width: `${SPRITE_WIDTH}px`,
+    height: `${SPRITE_HEIGHT}px`,
+    transform: "scale(0.48)",
+    transformOrigin: "top left",
+    position: "absolute",
+    top: "3px",
+    left: "2px",
+  };
+};
 
 export const OrderFrame = ({
   onClose,
@@ -90,7 +139,7 @@ export const OrderFrame = ({
                   key={food.id}
                   className="food-button"
                   name={food.name}
-                  image={imageUrl}
+                  image={getSmallFoodSpriteStyle(food.index, food.file)}
                   onClick={() => setSelectedFood(food)}
                   isSelected={isSelected}
                 />
