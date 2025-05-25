@@ -3,7 +3,9 @@ import { CustomerButtonWrapper } from "../../components/CustomerButtonWrapper";
 import { availableSkins } from "../../Data";
 import "./style.css";
 
-const CDN = "https://sunny.bixmy.party/cdn/images/Customer/";
+// ✅ เปลี่ยนจาก CDN → local path
+const CUSTOMER_IMAGE_BASE = "/images/Customer/";
+const ICON_IMAGE_BASE = "/images/Sprite-Extension/";
 
 export const JoinFrame = ({ onClose, onNext }) => {
   const [selectedIndex, setSelectedIndex] = useState(null);
@@ -33,17 +35,17 @@ export const JoinFrame = ({ onClose, onNext }) => {
               <img
                 className="UI-customer-2"
                 alt="Ui customer"
-                src={`https://sunny.bixmy.party/cdn/images/sprite-extension/UI-Customer-Icon2.png`}
+                src={`${ICON_IMAGE_BASE}UI-Customer-Icon2.png`}
               />
               <img
                 className="UI-customer-2"
                 alt="Ui customer"
-                src={`https://sunny.bixmy.party/cdn/images/sprite-extension/UI-Customer-Icon3.png`}
+                src={`${ICON_IMAGE_BASE}UI-Customer-Icon3.png`}
               />
               <img
                 className="UI-customer-2"
                 alt="Ui customer"
-                src={`https://sunny.bixmy.party/cdn/images/sprite-extension/UI-Customer-Icon5.png`}
+                src={`${ICON_IMAGE_BASE}UI-Customer-Icon5.png`}
               />
             </div>
           </div>
@@ -55,7 +57,7 @@ export const JoinFrame = ({ onClose, onNext }) => {
             {availableSkins.map((skin, i) => (
               <CustomerButtonWrapper
                 key={skin.id}
-                customerIcon={`${CDN}${skin.file}`}
+                customerIcon={`${CUSTOMER_IMAGE_BASE}${skin.file}`}
                 isSelected={selectedIndex === i}
                 onClick={() => setSelectedIndex(i)}
               />
