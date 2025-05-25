@@ -5,7 +5,7 @@ import { availableFoods } from "../../Data.generated";
 import "./style.css";
 
 // ✅ โหลดภาพทั้งหมด
-const allImages = import.meta.glob("/src/PNG-*/**/*.png", { eager: true });
+const allImages = import.meta.glob("/src/PNG-*/**/*{png,jpg}", { eager: true });
 const customerImages = import.meta.glob("../../PNG-Customer/*.png", {
   eager: true,
 });
