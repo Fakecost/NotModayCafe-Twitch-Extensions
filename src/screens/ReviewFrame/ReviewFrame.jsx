@@ -4,7 +4,9 @@ import { availableFoods } from "../../Data.generated";
 import "./style.css";
 
 // โหลดรูปทั้งหมดใน local
-const allImages = import.meta.glob("/src/PNG-*/**/*.{png,jpg}", { eager: true });
+const allImages = import.meta.glob("/src/PNG-*/**/*.{png,jpg,webp}", {
+  eager: true,
+});
 const customerImages = import.meta.glob("/src/PNG-Customer/*.png", {
   eager: true,
 });
