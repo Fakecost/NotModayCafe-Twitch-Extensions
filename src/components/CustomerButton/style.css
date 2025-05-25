@@ -1,5 +1,5 @@
 .customer-button {
-  background-image: url(../../../static/img/ui-general-tab3-1-14.png);
+  background-image: url(../../Sprite-Extension/UI-General-Tab5.png);
   background-position: 50% 50%;
   background-size: cover;
   height: 58px;
@@ -11,7 +11,7 @@
 }
 
 .customer-button:hover {
-  background-image: url(../../../static/img/ui-general-tab3-1-15.png);
+  background-image: url(../../Sprite-Extension/UI-General-Tab5-Selected.png);
   top: 156px;
   transform: scale(1.05);
   transition: transform 0.2s ease;

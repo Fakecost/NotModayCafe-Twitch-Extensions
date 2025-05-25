@@ -3,8 +3,32 @@ import { StarFrame } from "../../components/StarFrame";
 import { availableFoods } from "../../Data.generated";
 import "./style.css";
 
-const CDN = "https://sunny.bixmy.party/cdn/images/";
-const CUSTOMER_CDN = `${CDN}Customer/`;
+// โหลดรูปทั้งหมดใน local
+const allImages = import.meta.glob("/src/PNG-*/**/*.png", { eager: true });
+const customerImages = import.meta.glob("/src/PNG-Customer/*.png", {
+  eager: true,
+});
+const iconImages = import.meta.glob("/src/Sprite-Extension/*.png", {
+  eager: true,
+});
+
+// Utility หา path จาก string
+const getImage = (relativePath) => {
+  const cleanPath = relativePath.split("?")[0];
+  return (
+    Object.entries(allImages).find(([key]) =>
+      key.endsWith("/" + cleanPath)
+    )?.[1].default || ""
+  );
+};
+
+const getCustomerImage = (file) => {
+  return (
+    Object.entries(customerImages).find(([key]) =>
+      key.endsWith(`/${file}`)
+    )?.[1].default || ""
+  );
+};
 
 export const ReviewFrame = ({
   onBack,
@@ -16,18 +40,16 @@ export const ReviewFrame = ({
   const [rating, setRating] = useState(1);
   const [reviewText, setReviewText] = useState("");
 
-  const customerImage = selectedSkin
-    ? `${CUSTOMER_CDN}${selectedSkin.file}`
+  const customerImage = selectedSkin?.file
+    ? getCustomerImage(selectedSkin.file)
     : "";
-
-  const fallbackImage =
-    "https://cdn.animaapp.com/projects/682af909abc7ae9309e7e566/releases/682e09d5a1b6dd9b033310b7/img/foodfront.png";
-
+  const fallbackImage = getImage("PNG-Foods/Food-Food-Thai-PadThai-export.png"); // ใช้รูป local แทน fallback เดิม
   const bigImage = selectedFood?.bigFile
-    ? `${CDN}${selectedFood.bigFile}`
+    ? getImage(selectedFood.bigFile)
     : fallbackImage;
-
-  const bgImage = selectedFood?.bg ? `${CDN}${selectedFood.bg}` : "";
+  const foodIcon = selectedFood?.file
+    ? getImage(selectedFood.file)
+    : fallbackImage;
 
   return (
     <div className="review-frame">
@@ -80,21 +102,18 @@ export const ReviewFrame = ({
           <div className="review-title">Review</div>
           <div className="status-UI">
             <div className="main-button">
-              <img
-                className="UI-customer"
-                alt="UI customer"
-                src="https://cdn.animaapp.com/projects/682af909abc7ae9309e7e566/releases/682d0bb2ad49702e312281a3/img/ui-customer-icon1-1.png"
-              />
-              <img
-                className="UI-customer"
-                alt="UI customer"
-                src="https://cdn.animaapp.com/projects/682af909abc7ae9309e7e566/releases/682d0bb2ad49702e312281a3/img/ui-customer-icon3-1.png"
-              />
-              <img
-                className="UI-customer"
-                alt="UI customer"
-                src="https://cdn.animaapp.com/projects/682af909abc7ae9309e7e566/releases/682d0bb2ad49702e312281a3/img/ui-customer-icon5-1.png"
-              />
+              {[
+                "UI-Customer-Icon1.png",
+                "UI-Customer-Icon3.png",
+                "UI-Customer-Icon5.png",
+              ].map((icon) => (
+                <img
+                  key={icon}
+                  className="UI-customer"
+                  alt="UI customer"
+                  src={getImage(`Sprite-Extension/${icon}`)}
+                />
+              ))}
             </div>
           </div>
         </div>
@@ -109,15 +128,7 @@ export const ReviewFrame = ({
         </div>
 
         <div className="food-icon-group-2">
-          <img
-            className="img"
-            alt="Food icon"
-            src={
-              selectedFood?.file
-                ? `${CDN}${selectedFood.file}`
-                : "https://cdn.animaapp.com/projects/682af909abc7ae9309e7e566/releases/682dd5f99fc6c14743fad6a5/img/foodicon.png"
-            }
-          />
+          <img className="img" alt="Food icon" src={foodIcon} />
           <p className="p">
             {selectedFood?.name || "Strawberry And Chocolate Soft serve"}
           </p>

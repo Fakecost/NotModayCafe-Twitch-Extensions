@@ -4,7 +4,32 @@ import { availableSkins } from "../../Data";
 import { availableFoods } from "../../Data.generated";
 import "./style.css";
 
-const CDN = "https://sunny.bixmy.party/cdn/images/Customer/";
+// ✅ โหลดภาพทั้งหมด
+const allImages = import.meta.glob("/src/PNG-*/**/*.png", { eager: true });
+const customerImages = import.meta.glob("../../PNG-Customer/*.png", {
+  eager: true,
+});
+const iconImages = import.meta.glob("../../Sprite-Extension/*.png", {
+  eager: true,
+});
+
+// ✅ Utility สำหรับ map path จาก string
+const getImage = (relativePath) => {
+  const cleanPath = relativePath.split("?")[0]; // ตัด query string ทิ้ง
+  const match = Object.entries(allImages).find(([key]) => {
+    return key.endsWith("/" + cleanPath);
+  });
+  console.log("🔍 Searching:", cleanPath, "→ Found:", match?.[0]); // ✅ Debug ได้
+  return match?.[1].default;
+};
+
+const getCustomerImage = (file) =>
+  Object.entries(customerImages).find(([key]) => key.endsWith(`/${file}`))?.[1]
+    ?.default;
+
+const getIcon = (name) =>
+  Object.entries(iconImages).find(([path]) => path.includes(name))?.[1]
+    ?.default;
 
 export const OrderFrame = ({
   onClose,
@@ -18,13 +43,18 @@ export const OrderFrame = ({
     selectedSkin && selectedSkin.file
       ? selectedSkin
       : availableSkins[Math.floor(Math.random() * availableSkins.length)];
-  const customerImage = `${CDN}${skin.file}`;
+
+  const customerImage = getCustomerImage(skin.file);
 
   useEffect(() => {
     if (availableFoods.length > 0) {
-      setSelectedFood(availableFoods[0]);
+      setSelectedFood(availableFoods[0]); // ✅ เลือกเมนูแรกเสมอ
     }
-  }, [setSelectedFood]);
+  }, []);
+
+  const selectedFoodImage = selectedFood?.bigFile
+    ? getImage(selectedFood.file)
+    : null;
 
   return (
     <div className="order-frame">
@@ -34,10 +64,12 @@ export const OrderFrame = ({
           onClick={onClose}
           style={{ cursor: "pointer" }}
         />
+
         <div className="food-grid">
           <div className="container-2">
             {availableFoods.map((food) => {
-              const imageUrl = `https://sunny.bixmy.party/cdn/images/${food.file}`;
+              const imageUrl = getImage(food.file);
+              console.log(food.file);
               const isSelected = selectedFood?.id === food.id;
               return (
                 <FoodButton
@@ -84,17 +116,17 @@ export const OrderFrame = ({
               <img
                 className="UI-customer-icon"
                 alt="UI customer"
-                src="https://sunny.bixmy.party/cdn/images/sprite-extension/UI-Customer-Icon1.png"
+                src={getIcon("UI-Customer-Icon1")}
               />
               <img
                 className="UI-customer-icon"
                 alt="UI customer"
-                src="https://sunny.bixmy.party/cdn/images/sprite-extension/UI-Customer-Icon4.png"
+                src={getIcon("UI-Customer-Icon4")}
               />
               <img
                 className="UI-customer-icon"
                 alt="UI customer"
-                src="https://sunny.bixmy.party/cdn/images/sprite-extension/UI-Customer-Icon5.png"
+                src={getIcon("UI-Customer-Icon5")}
               />
             </div>
           </div>
@@ -113,11 +145,7 @@ export const OrderFrame = ({
           <img
             className="food-icon-2"
             alt="Food icon"
-            src={
-              selectedFood?.file
-                ? `https://sunny.bixmy.party/cdn/images/${selectedFood.file}`
-                : "https://cdn.animaapp.com/projects/682af909abc7ae9309e7e566/releases/682dd5f99fc6c14743fad6a5/img/foodicon.png"
-            }
+            src={selectedFoodImage || "/fallback/foodicon.png"}
           />
           <p className="food-name-2">
             {selectedFood?.name || "Strawberry And Chocolate Soft serve"}
