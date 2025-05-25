@@ -56,7 +56,7 @@ export const JoinFrame = ({ onClose, onNext }) => {
               return (
                 <CustomerButtonWrapper
                   key={skin.id}
-                  customerIcon={imagePath} // ✅ ส่ง path จริงเข้า src
+                  index={skin.spriteIndex} // ✅ ส่ง path จริงเข้า src
                   isSelected={selectedIndex === i}
                   onClick={() => setSelectedIndex(i)}
                 />

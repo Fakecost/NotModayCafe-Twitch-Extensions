@@ -4,33 +4,48 @@ import { availableSkins } from "../../Data";
 import { availableFoods } from "../../Data.generated";
 import "./style.css";
 
-// ✅ โหลดภาพทั้งหมด
-const allImages = import.meta.glob("/src/PNG-*/**/*{png,jpg,webp}", {
-  eager: true,
-});
-const customerImages = import.meta.glob("../../PNG-Customer/*.png", {
+// === SPRITE CONFIG ===
+
+// === LOAD IMAGES ===
+const allImages = import.meta.glob("/src/PNG-*/**/*.{png,jpg,webp}", {
   eager: true,
 });
 const iconImages = import.meta.glob("../../Sprite-Extension/*.png", {
   eager: true,
 });
 
-// ✅ Utility สำหรับ map path จาก string
-const getImage = (relativePath) => {
-  const cleanPath = relativePath.split("?")[0]; // ตัด query string ทิ้ง
-  const match = Object.entries(allImages).find(([key]) => {
-    return key.endsWith("/" + cleanPath);
-  });
-  return match?.[1].default;
-};
-
-const getCustomerImage = (file) =>
-  Object.entries(customerImages).find(([key]) => key.endsWith(`/${file}`))?.[1]
-    ?.default;
+// === UTILITIES ===
+const getImage = (path) => allImages[path]?.default || "";
 
 const getIcon = (name) =>
   Object.entries(iconImages).find(([path]) => path.includes(name))?.[1]
     ?.default;
+
+// === SPRITE STYLE FOR CUSTOMER ===
+const getCustomerSpriteStyle = (index) => {
+  const SPRITE_PATH = "/src/PNG-Customer/CustomerSpriteSheet.png";
+  const SPRITE_WIDTH = 280;
+  const SPRITE_HEIGHT = 350;
+  const COLUMNS = 6;
+  const x = (index % COLUMNS) * SPRITE_WIDTH;
+  const y = Math.floor(index / COLUMNS) * SPRITE_HEIGHT;
+  const spriteURL = getImage(SPRITE_PATH);
+
+  return {
+    backgroundImage: `url(${spriteURL})`,
+    backgroundPosition: `-${x}px -${y}px`,
+    backgroundSize: `${COLUMNS * SPRITE_WIDTH}px auto`,
+    backgroundRepeat: "no-repeat",
+    imageRendering: "pixelated",
+    width: `${SPRITE_WIDTH}px`,
+    height: `${SPRITE_HEIGHT}px`,
+    transform: "scale(0.48)",
+    transformOrigin: "top left",
+    position: "absolute",
+    top: "-10px",
+    left: "0px",
+  };
+};
 
 export const OrderFrame = ({
   onClose,
@@ -41,15 +56,13 @@ export const OrderFrame = ({
   setSelectedFood,
 }) => {
   const skin =
-    selectedSkin && selectedSkin.file
+    selectedSkin && typeof selectedSkin.spriteIndex === "number"
       ? selectedSkin
       : availableSkins[Math.floor(Math.random() * availableSkins.length)];
 
-  const customerImage = getCustomerImage(skin.file);
-
   useEffect(() => {
     if (availableFoods.length > 0) {
-      setSelectedFood(availableFoods[0]); // ✅ เลือกเมนูแรกเสมอ
+      setSelectedFood(availableFoods[0]);
     }
   }, []);
 
@@ -66,11 +79,11 @@ export const OrderFrame = ({
           style={{ cursor: "pointer" }}
         />
 
+        {/* FOOD SELECTION GRID */}
         <div className="food-grid">
           <div className="container-2">
             {availableFoods.map((food) => {
               const imageUrl = getImage(food.file);
-
               const isSelected = selectedFood?.id === food.id;
               return (
                 <FoodButton
@@ -86,11 +99,8 @@ export const OrderFrame = ({
           </div>
         </div>
 
-        <button
-          className="back-button-wrapper"
-          onClick={onBack}
-          style={{ cursor: "pointer" }}
-        >
+        {/* NAVIGATION BUTTONS */}
+        <button className="back-button-wrapper" onClick={onBack}>
           <div className="overlap-group-wrapper-2">
             <div className="overlap-group-5">
               <div className="text-wrapper-4">Back</div>
@@ -98,11 +108,7 @@ export const OrderFrame = ({
           </div>
         </button>
 
-        <button
-          className="next-button"
-          onClick={onNext}
-          style={{ cursor: "pointer" }}
-        >
+        <button className="next-button" onClick={onNext}>
           <div className="overlap-group-wrapper-2">
             <div className="overlap-group-6">
               <div className="text-wrapper-4">Next</div>
@@ -110,6 +116,7 @@ export const OrderFrame = ({
           </div>
         </button>
 
+        {/* TITLE + STATUS UI */}
         <div className="overlap-3">
           <div className="order-title">Order your Dish</div>
           <div className="status-UI-2">
@@ -133,15 +140,16 @@ export const OrderFrame = ({
           </div>
         </div>
 
+        {/* CUSTOMER SPRITE */}
         <div className="customer-display-2">
           <div className="queue-name-2">Realcost_MorronError</div>
-          <img
+          <div
             className="customer-image-2"
-            alt="Customer"
-            src={customerImage}
+            style={getCustomerSpriteStyle(skin.spriteIndex)}
           />
         </div>
 
+        {/* FOOD SUMMARY */}
         <div className="food-icon-group-3">
           <img
             className="food-icon-2"
