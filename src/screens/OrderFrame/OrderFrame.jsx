@@ -21,7 +21,6 @@ const getImage = (relativePath) => {
   const match = Object.entries(allImages).find(([key]) => {
     return key.endsWith("/" + cleanPath);
   });
-  console.log("🔍 Searching:", cleanPath, "→ Found:", match?.[0]); // ✅ Debug ได้
   return match?.[1].default;
 };
 
@@ -71,7 +70,7 @@ export const OrderFrame = ({
           <div className="container-2">
             {availableFoods.map((food) => {
               const imageUrl = getImage(food.file);
-              console.log(food.file);
+
               const isSelected = selectedFood?.id === food.id;
               return (
                 <FoodButton

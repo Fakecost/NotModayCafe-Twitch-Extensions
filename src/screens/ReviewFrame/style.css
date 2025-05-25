@@ -46,11 +46,13 @@
 }
 
 .review-frame .food-background {
-  height: 197px;
-  left: 88px;
   position: absolute;
-  top: 54px;
-  width: 351px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* ไม่ต้องใส่ width / height ที่นี่ */
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .review-frame .food-front {

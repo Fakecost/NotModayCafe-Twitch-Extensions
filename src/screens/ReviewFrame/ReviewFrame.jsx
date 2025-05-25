@@ -36,6 +36,46 @@ const getIcon = (name) =>
   Object.entries(iconImages).find(([path]) => path.includes(name))?.[1]
     ?.default;
 
+// ✅ SPRITE SHEET CONFIG
+const SPRITE_WIDTH = 345.6;
+const SPRITE_HEIGHT = 194.4;
+const SPRITE_COLS_BY_PATH = {
+  "PNG-Big-Foods/FoodSpriteSheet.png": 14,
+  "PNG-Big-Drinks/DrinkSpriteSheet.png": 13,
+  "PNG-Big-Desserts/DessertSpriteSheet.png": 14,
+};
+
+// ✅ ฟังก์ชันจัด style
+const normalize = (p) =>
+  p
+    ?.replace(/^\.?\/?src\//, "")
+    .replace(/^\.\//, "")
+    .replace(/^\/+/, "");
+
+const getSpriteStyle = (index, spritePath) => {
+  if (!index || !spritePath) return {};
+
+  const cleanPath = normalize(spritePath);
+  const cols = SPRITE_COLS_BY_PATH[cleanPath] || 1;
+  const zeroIndex = index - 1;
+
+  const x = (zeroIndex % cols) * SPRITE_WIDTH;
+  const y = Math.floor(zeroIndex / cols) * SPRITE_HEIGHT;
+
+  return {
+    width: `${SPRITE_WIDTH}px`,
+    height: `${SPRITE_HEIGHT}px`,
+    backgroundImage: `url(${getImage(cleanPath)})`,
+    backgroundPosition: `-${x}px -${y}px`,
+    backgroundSize: `${cols * SPRITE_WIDTH}px auto`,
+    imageRendering: "pixelated",
+    position: "absolute",
+    top: "49.5%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+  };
+};
+
 export const ReviewFrame = ({
   onBack,
   onNext,
@@ -49,10 +89,8 @@ export const ReviewFrame = ({
   const customerImage = selectedSkin?.file
     ? getCustomerImage(selectedSkin.file)
     : "";
-  const fallbackImage = getImage("PNG-Foods/Food-Food-Thai-PadThai-export.png"); // ใช้รูป local แทน fallback เดิม
-  const bigImage = selectedFood?.bigFile
-    ? getImage(selectedFood.bigFile)
-    : fallbackImage;
+
+  const fallbackImage = getImage("PNG-Foods/Food-Food-Thai-PadThai-export.png");
   const foodIcon = selectedFood?.file
     ? getImage(selectedFood.file)
     : fallbackImage;
@@ -68,17 +106,18 @@ export const ReviewFrame = ({
 
         <div className="review-display">
           <div className="food-big-display">
-            <img
+            <div
               className="food-background"
-              alt="Food background"
-              src={bigImage}
               style={{
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                maxWidth: "100%",
-                maxHeight: "100%",
+                ...(selectedFood?.bigFile && selectedFood?.index
+                  ? getSpriteStyle(selectedFood.index, selectedFood.bigFile)
+                  : {
+                      backgroundImage: `url(${fallbackImage})`,
+                      backgroundSize: "contain",
+                      backgroundRepeat: "no-repeat",
+                      width: "100%",
+                      height: "100%",
+                    }),
               }}
             />
           </div>
@@ -109,17 +148,17 @@ export const ReviewFrame = ({
           <div className="status-UI">
             <div className="main-button">
               <img
-                className="UI-customer-icon"
+                className="UI-customer"
                 alt="UI customer"
                 src={getIcon("UI-Customer-Icon1")}
               />
               <img
-                className="UI-customer-icon"
+                className="UI-customer"
                 alt="UI customer"
                 src={getIcon("UI-Customer-Icon3")}
               />
               <img
-                className="UI-customer-icon"
+                className="UI-customer"
                 alt="UI customer"
                 src={getIcon("UI-Customer-Icon6")}
               />
