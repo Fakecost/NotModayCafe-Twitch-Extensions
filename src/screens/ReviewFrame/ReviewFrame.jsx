@@ -30,6 +30,10 @@ const getCustomerImage = (file) => {
   );
 };
 
+const getIcon = (name) =>
+  Object.entries(iconImages).find(([path]) => path.includes(name))?.[1]
+    ?.default;
+
 export const ReviewFrame = ({
   onBack,
   onNext,
@@ -102,18 +106,21 @@ export const ReviewFrame = ({
           <div className="review-title">Review</div>
           <div className="status-UI">
             <div className="main-button">
-              {[
-                "UI-Customer-Icon1.png",
-                "UI-Customer-Icon3.png",
-                "UI-Customer-Icon5.png",
-              ].map((icon) => (
-                <img
-                  key={icon}
-                  className="UI-customer"
-                  alt="UI customer"
-                  src={getImage(`Sprite-Extension/${icon}`)}
-                />
-              ))}
+              <img
+                className="UI-customer-icon"
+                alt="UI customer"
+                src={getIcon("UI-Customer-Icon1")}
+              />
+              <img
+                className="UI-customer-icon"
+                alt="UI customer"
+                src={getIcon("UI-Customer-Icon3")}
+              />
+              <img
+                className="UI-customer-icon"
+                alt="UI customer"
+                src={getIcon("UI-Customer-Icon6")}
+              />
             </div>
           </div>
         </div>

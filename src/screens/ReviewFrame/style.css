@@ -7,7 +7,7 @@
 }
 
 .review-frame .div {
-  background-image: url(https://cdn.animaapp.com/projects/682af909abc7ae9309e7e566/releases/682dd5f99fc6c14743fad6a5/img/queue-frame.png);
+  background-image: url(../../Sprite-Extension/UI-General-BG2.png);
   background-position: 50% 50%;
   background-size: cover;
   height: 660px;
