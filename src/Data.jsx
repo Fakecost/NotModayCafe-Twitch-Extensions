@@ -1,5 +1,3 @@
-const CDN = "https://sunny.bixmy.party/cdn/images/Customer/";
-
 export const availableSkins = [
   {
     id: "axolotl",

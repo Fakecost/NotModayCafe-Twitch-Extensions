@@ -2,10 +2,16 @@ import React, { useState } from "react";
 import { CustomerButtonWrapper } from "../../components/CustomerButtonWrapper";
 import { availableSkins } from "../../Data";
 import "./style.css";
+import Icon2 from "../../Sprite-Extension/UI-Customer-Icon2.png";
+import Icon3 from "../../Sprite-Extension/UI-Customer-Icon3.png";
+import Icon5 from "../../Sprite-Extension/UI-Customer-Icon5.png";
 
-// ✅ เปลี่ยนจาก CDN → local path
-const CUSTOMER_IMAGE_BASE = "/images/Customer/";
 const ICON_IMAGE_BASE = "/images/Sprite-Extension/";
+
+// ⭐ โหลดทุก PNG ใน PNG-Customer แบบ dynamic
+const skinImages = import.meta.glob("../../PNG-Customer/*.png", {
+  eager: true,
+});
 
 export const JoinFrame = ({ onClose, onNext }) => {
   const [selectedIndex, setSelectedIndex] = useState(null);
@@ -17,7 +23,7 @@ export const JoinFrame = ({ onClose, onNext }) => {
         : Math.floor(Math.random() * availableSkins.length);
 
     const selectedSkin = availableSkins[indexToUse];
-    onNext(selectedSkin); // ✅ ส่ง object กลับ
+    onNext(selectedSkin);
   };
 
   return (
@@ -32,21 +38,9 @@ export const JoinFrame = ({ onClose, onNext }) => {
         <div className="overlap-group-7">
           <div className="status-UI-3">
             <div className="main-button-4">
-              <img
-                className="UI-customer-2"
-                alt="Ui customer"
-                src={`${ICON_IMAGE_BASE}UI-Customer-Icon2.png`}
-              />
-              <img
-                className="UI-customer-2"
-                alt="Ui customer"
-                src={`${ICON_IMAGE_BASE}UI-Customer-Icon3.png`}
-              />
-              <img
-                className="UI-customer-2"
-                alt="Ui customer"
-                src={`${ICON_IMAGE_BASE}UI-Customer-Icon5.png`}
-              />
+              <img className="UI-customer-2" alt="Ui customer" src={Icon2} />
+              <img className="UI-customer-2" alt="Ui customer" src={Icon3} />
+              <img className="UI-customer-2" alt="Ui customer" src={Icon5} />
             </div>
           </div>
           <p className="customer-title">Choose your character as Customer</p>
@@ -54,14 +48,20 @@ export const JoinFrame = ({ onClose, onNext }) => {
 
         <div className="customer-grid">
           <div className="container-3">
-            {availableSkins.map((skin, i) => (
-              <CustomerButtonWrapper
-                key={skin.id}
-                customerIcon={`${CUSTOMER_IMAGE_BASE}${skin.file}`}
-                isSelected={selectedIndex === i}
-                onClick={() => setSelectedIndex(i)}
-              />
-            ))}
+            {availableSkins.map((skin, i) => {
+              const imagePath = Object.entries(skinImages).find(([path]) =>
+                path.endsWith(`/${skin.file}`)
+              )?.[1]?.default;
+
+              return (
+                <CustomerButtonWrapper
+                  key={skin.id}
+                  customerIcon={imagePath} // ✅ ส่ง path จริงเข้า src
+                  isSelected={selectedIndex === i}
+                  onClick={() => setSelectedIndex(i)}
+                />
+              );
+            })}
           </div>
         </div>
 
