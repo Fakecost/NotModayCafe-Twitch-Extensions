@@ -2,7 +2,7 @@
   background-image: url(https://sunny.bixmy.party/cdn/images/sprite-extension/UI-Customer-Tab4.png); /* ใช้ texture เดิม */
   background-position: center;
   background-size: cover;
-  height: 62px;
+  height: 63px;
   width: 100%;
   display: flex;
   align-items: center;
@@ -13,11 +13,11 @@
   cursor: pointer;
 }
 .food-button:hover {
-  background-image: url(https://sunny.bixmy.party/cdn/images/sprite-extension/UI-Customer-Tab4-Selected.png); /* 🔁 เปลี่ยนตามภาพที่คุณให้ */
+  background-image: url(../../../src/Sprite-Extension/UI-Customer-Tab4-Selected.png); /* 🔁 เปลี่ยนตามภาพที่คุณให้ */
 }
 
 .food-button.selected {
-  background-image: url(https://sunny.bixmy.party/cdn/images/sprite-extension/UI-Customer-Tab4-Selected.png);
+  background-image: url(../../../src/Sprite-Extension/UI-Customer-Tab4-Selected.png);
 }
 
 .food-icon-group {

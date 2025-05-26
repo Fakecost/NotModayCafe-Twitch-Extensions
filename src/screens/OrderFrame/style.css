@@ -44,6 +44,10 @@
   max-height: 100%;
 }
 
+.order-frame .container-2 {
+  transform: translate(-4px, 4px); /* ขยับ scrollbar ลง 4px */
+}
+
 .order-frame .back-button-wrapper {
   all: unset;
   box-sizing: border-box;
@@ -68,6 +72,7 @@
   height: 34px;
   position: relative;
   width: 94px;
+  cursor: pointer;
 }
 
 .order-frame .text-wrapper-4 {
@@ -101,6 +106,7 @@
   height: 34px;
   position: relative;
   width: 94px;
+  cursor: pointer;
 }
 
 .order-frame .overlap-3 {

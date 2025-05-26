@@ -16,7 +16,7 @@
 }
 
 .review-frame .review-display {
-  background-image: url(https://cdn.animaapp.com/projects/682af909abc7ae9309e7e566/releases/682dd5f99fc6c14743fad6a5/img/reviewdisplay@2x.png);
+  background-image: url(../../Sprite-Extension/UI-Customer-BG2.png);
   background-position: 50% 50%;
   background-size: cover;
   height: 459px;
@@ -27,7 +27,7 @@
 }
 
 .review-frame .food-big-display {
-  background-image: url(https://cdn.animaapp.com/projects/682af909abc7ae9309e7e566/releases/682e09d5a1b6dd9b033310b7/img/foodbigdisplay@2x.png);
+  background-image: url(../../Sprite-Extension/UI-Review-BG1.png);
   background-position: 50% 50%;
   background-size: cover;
   height: 212px;
@@ -84,7 +84,7 @@
 }
 
 .review-frame .review-text {
-  background-image: url(https://cdn.animaapp.com/projects/682af909abc7ae9309e7e566/releases/682dd5f99fc6c14743fad6a5/img/reviewtext@2x.png);
+  background-image: url(../../Sprite-Extension/UI-Review-BG2.png);
   background-position: 50% 50%;
   background-size: cover;
   height: 86px;
@@ -134,7 +134,7 @@
 }
 
 .review-frame .status-UI {
-  background-image: url(https://cdn.animaapp.com/projects/682af909abc7ae9309e7e566/releases/682e09d5a1b6dd9b033310b7/img/statusui@2x.png);
+  background-image: url(../../../static/img/statusui-3.png);
   background-position: 50% 50%;
   background-size: cover;
   height: 64px;
@@ -161,7 +161,7 @@
 }
 
 .review-frame .customer-display {
-  background-image: url(https://cdn.animaapp.com/projects/682af909abc7ae9309e7e566/releases/682dd5f99fc6c14743fad6a5/img/customerdisplay@2x.png);
+  background-image: url(../../../static/img/customerdisplay-3.png);
   background-position: 50% 50%;
   background-size: cover;
   height: 186px;
@@ -261,12 +261,13 @@
 }
 
 .review-frame .div-wrapper {
-  background-image: url(https://cdn.animaapp.com/projects/682af909abc7ae9309e7e566/releases/682d0bb2ad49702e312281a3/img/ui-general-tab1-1.png);
+  background-image: url(../../../static/img/ui-general-tab1-1-6.png);
   background-position: 50% 50%;
   background-size: cover;
   height: 34px;
   position: relative;
   width: 94px;
+  cursor: pointer;
 }
 
 .review-frame .text-wrapper-2 {
@@ -275,12 +276,17 @@
   font-size: 16px;
   font-weight: 400;
   height: 22px;
-  left: 28px;
+
   letter-spacing: 0;
   line-height: normal;
-  position: absolute;
+
   text-align: center;
-  top: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  position: relative;
 }
 
 .review-frame .confirm-button {
@@ -294,16 +300,17 @@
 }
 
 .review-frame .overlap-group-2 {
-  background-image: url(https://cdn.animaapp.com/projects/682af909abc7ae9309e7e566/releases/682c3d432d7a250a458b1968/img/ui-general-tab1-1.png);
+  background-image: url(../../../static/img/ui-general-tab1-1-7.png);
   background-position: 50% 50%;
   background-size: cover;
   height: 34px;
   position: relative;
   width: 94px;
+  cursor: pointer;
 }
 
 .review-frame .close-button {
-  background-image: url(https://cdn.animaapp.com/projects/682af909abc7ae9309e7e566/releases/682dfbb6a1b6dd9b0333108a/img/closebutton@2x.png);
+  background-image: url(../../../static/img/closebutton-3.png);
   background-position: 50% 50%;
   background-size: cover;
   height: 34px;

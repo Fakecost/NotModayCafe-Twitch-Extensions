@@ -259,7 +259,7 @@ export const ReviewFrame = ({
 
         <button className="confirm-button" onClick={onNext}>
           <div className="overlap-group-2">
-            <div className="text-wrapper-2">Next</div>
+            <div className="text-wrapper-2">Confirm</div>
           </div>
         </button>
       </div>

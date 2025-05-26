@@ -1,5 +1,5 @@
 .customer-button-wrapper {
-  background-image: url(https://sunny.bixmy.party/cdn/images/sprite-extension/UI-Customer-Tab1.png);
+  background-image: url(../../../src/Sprite-Extension/UI-Customer-Tab1.png);
   background-position: 50% 50%;
   background-size: cover;
   height: 113px;
@@ -9,11 +9,11 @@
 }
 
 .customer-button-wrapper:hover {
-  background-image: url(https://sunny.bixmy.party/cdn/images/sprite-extension/UI-Customer-Tab1-Selected.png); /* สีเวลาชี้ */
+  background-image: url(../../../src/Sprite-Extension/UI-Customer-Tab1-Selected.png); /* สีเวลาชี้ */
 }
 
 .customer-button-wrapper.selected {
-  background-image: url(https://sunny.bixmy.party/cdn/images/sprite-extension/UI-Customer-Tab1-Selected.png);
+  background-image: url(../../../src/Sprite-Extension/UI-Customer-Tab1-Selected.png);
 }
 
 .customer-icon {
