@@ -50,9 +50,9 @@ const getSpriteStyle = (index, spritePath) => {
   const SPRITE_WIDTH = 345.6;
   const SPRITE_HEIGHT = 194.4;
   const SPRITE_COLS_BY_PATH = {
-    "PNG-Foods/FoodSpriteSheet.png": 14,
+    "PNG-Foods/FoodSpriteSheet.png": 13,
     "PNG-Drinks/DrinkSpriteSheet.png": 13,
-    "PNG-Desserts/DessertSpriteSheet.png": 14,
+    "PNG-Desserts/DessertSpriteSheet.png": 10,
   };
 
   const cleanPath = normalize(spritePath);

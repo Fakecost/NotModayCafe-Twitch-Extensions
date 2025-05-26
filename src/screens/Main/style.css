@@ -1,45 +1,44 @@
 .main {
-  background-color: rgb(0, 0, 0, 0);
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  width: 100%;
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background-color: transparent;
+  overflow: visible;
 }
 
-.main .main-button-wrapper {
-  background-color: #ffffff;
-  height: 1080px;
-  width: 1920px;
-}
-
-.main .main-button-2 {
+.main-button-wrapper {
   position: fixed;
   top: 50%;
-  left: 40px;
+  left: -80px; /* ซ่อนเริ่มต้น */
   transform: translateY(-50%);
+  transition: left 0.3s ease;
+  z-index: 1000;
+}
+
+.main-button-wrapper.slide-in {
+  left: 20px;
+}
+
+.main-button-wrapper.slide-out {
+  left: -80px;
+}
+
+.main-button-2 {
   display: flex;
   flex-direction: column;
-  gap: 50px;
+  gap: 20px;
   width: 58px;
 }
 
-.main .design-component-instance-node {
-  align-self: stretch !important;
-  left: unset !important;
-  top: unset !important;
-  width: 100% !important;
-}
 .overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   pointer-events: none;
   z-index: 999;
 }

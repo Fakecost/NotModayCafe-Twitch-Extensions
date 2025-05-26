@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { CustomerButton } from "../../components/CustomerButton";
 import { QueueButton } from "../../components/QueueButton";
 import { StaffButton } from "../../components/StaffButton";
@@ -13,23 +13,50 @@ export const Main = () => {
   const [activeFrame, setActiveFrame] = useState(null);
   const [selectedSkin, setSelectedSkin] = useState(null);
   const [selectedFood, setSelectedFood] = useState(null);
+  const [isHovering, setIsHovering] = useState(false);
+
+  const containerRef = useRef(null);
+  const buttonRef = useRef(null);
+
+  const handleMouseEnter = () => {
+    setIsHovering(true);
+  };
+
+  const handleMouseLeave = () => {
+    setTimeout(() => {
+      const stillInside =
+        containerRef.current?.matches(":hover") ||
+        buttonRef.current?.matches(":hover");
+
+      if (!stillInside) {
+        setIsHovering(false);
+      }
+    }, 100);
+  };
 
   return (
-    <div className="main">
-      <div className="main-button-wrapper">
+    <div
+      className="main"
+      ref={containerRef}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <div
+        className={`main-button-wrapper ${
+          isHovering ? "slide-in" : "slide-out"
+        }`}
+        ref={buttonRef}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
         <div className="main-button-2">
-          <QueueButton
-            className="design-component-instance-node"
-            onClick={() => setActiveFrame("queue")}
-          />
-          <CustomerButton
-            className="design-component-instance-node"
-            onClick={() => setActiveFrame("join")}
-          />
-          {false && <StaffButton className="design-component-instance-node" />}
+          <QueueButton onClick={() => setActiveFrame("queue")} />
+          <CustomerButton onClick={() => setActiveFrame("join")} />
+          {false && <StaffButton />}
         </div>
       </div>
 
+      {/* Renders */}
       {activeFrame === "queue" && (
         <div className="overlay">
           <QueueFrame
@@ -38,7 +65,6 @@ export const Main = () => {
           />
         </div>
       )}
-
       {activeFrame === "join" && (
         <div className="overlay">
           <JoinFrame
@@ -50,7 +76,6 @@ export const Main = () => {
           />
         </div>
       )}
-
       {activeFrame === "order" && (
         <div className="overlay">
           <OrderFrame
@@ -63,7 +88,6 @@ export const Main = () => {
           />
         </div>
       )}
-
       {activeFrame === "review" && (
         <div className="overlay">
           <ReviewFrame
