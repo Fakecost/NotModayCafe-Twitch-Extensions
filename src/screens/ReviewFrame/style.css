@@ -195,7 +195,7 @@
 }
 
 .review-frame .food-icon-group-2 {
-  background-image: url(https://cdn.animaapp.com/projects/682af909abc7ae9309e7e566/releases/682dd5f99fc6c14743fad6a5/img/foodicongroup@2x.png);
+  background-image: url(../../../static/img/foodicongroup-6.png);
   background-position: 50% 50%;
   background-size: cover;
   height: 118px;
@@ -206,12 +206,12 @@
 }
 
 .review-frame .img {
-  height: 105px;
-  left: 4px;
+  height: 100px;
   object-fit: cover;
   position: absolute;
-  top: 4px;
-  width: 104px;
+  width: 100px;
+  left: 5px;
+  top: 10px;
 }
 
 .review-frame .p {

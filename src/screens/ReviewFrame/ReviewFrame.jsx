@@ -37,13 +37,6 @@ const getIcon = (name) =>
     ?.default;
 
 // ✅ SPRITE SHEET CONFIG
-const SPRITE_WIDTH = 345.6;
-const SPRITE_HEIGHT = 194.4;
-const SPRITE_COLS_BY_PATH = {
-  "PNG-Big-Foods/FoodSpriteSheet.png": 14,
-  "PNG-Big-Drinks/DrinkSpriteSheet.png": 13,
-  "PNG-Big-Desserts/DessertSpriteSheet.png": 14,
-};
 
 // ✅ ฟังก์ชันจัด style
 const normalize = (p) =>
@@ -54,6 +47,13 @@ const normalize = (p) =>
 
 const getSpriteStyle = (index, spritePath) => {
   if (!index || !spritePath) return {};
+  const SPRITE_WIDTH = 345.6;
+  const SPRITE_HEIGHT = 194.4;
+  const SPRITE_COLS_BY_PATH = {
+    "PNG-Foods/FoodSpriteSheet.png": 14,
+    "PNG-Drinks/DrinkSpriteSheet.png": 13,
+    "PNG-Desserts/DessertSpriteSheet.png": 14,
+  };
 
   const cleanPath = normalize(spritePath);
   const cols = SPRITE_COLS_BY_PATH[cleanPath] || 1;
@@ -61,6 +61,8 @@ const getSpriteStyle = (index, spritePath) => {
 
   const x = (zeroIndex % cols) * SPRITE_WIDTH;
   const y = Math.floor(zeroIndex / cols) * SPRITE_HEIGHT;
+
+  console.log(cleanPath);
 
   return {
     width: `${SPRITE_WIDTH}px`,
@@ -73,6 +75,65 @@ const getSpriteStyle = (index, spritePath) => {
     top: "49.5%",
     left: "50%",
     transform: "translate(-50%, -50%)",
+  };
+};
+
+const getCustomerSpriteStyle = (index) => {
+  const SPRITE_PATH = "PNG-Customer/CustomerSpriteSheet.png";
+  const SPRITE_WIDTH = 280;
+  const SPRITE_HEIGHT = 350;
+  const COLUMNS = 6;
+
+  const x = (index % COLUMNS) * SPRITE_WIDTH;
+  const y = Math.floor(index / COLUMNS) * SPRITE_HEIGHT;
+
+  return {
+    backgroundImage: `url(${getImage(SPRITE_PATH)})`,
+    backgroundPosition: `-${x}px -${y}px`,
+    backgroundSize: `${COLUMNS * SPRITE_WIDTH}px auto`,
+    backgroundRepeat: "no-repeat",
+    imageRendering: "pixelated",
+    width: `${SPRITE_WIDTH}px`,
+    height: `${SPRITE_HEIGHT}px`,
+    transform: "scale(0.48)",
+    transformOrigin: "top left",
+    position: "absolute",
+    top: "-10px",
+    left: "0px",
+  };
+};
+
+const getFoodImage = (relativePath) => {
+  const clean = relativePath.replace(/^\/+/, "");
+  const match = Object.entries(allImages).find(([key]) =>
+    key.endsWith("/" + clean)
+  );
+  return match?.[1]?.default || "";
+};
+
+const getSmallFoodSpriteStyle = (index, spritePath) => {
+  if (!index || !spritePath) return {};
+  const SPRITE_WIDTH = 100;
+  const SPRITE_HEIGHT = 100;
+  const SPRITE_COLS_BY_PATH = {
+    "PNG-Foods/SmallFoodSpriteSheet.png": 13,
+    "PNG-Drinks/SmallDrinkSpriteSheet.png": 13,
+    "PNG-Desserts/SmallDessertSpriteSheet.png": 10,
+  };
+  const cleanPath = normalize(spritePath);
+  const cols = SPRITE_COLS_BY_PATH[cleanPath] || 1;
+  const zeroIndex = index - 1;
+
+  const x = (zeroIndex % cols) * SPRITE_WIDTH;
+  const y = Math.floor(zeroIndex / cols) * SPRITE_HEIGHT;
+  const spriteURL = getFoodImage(cleanPath);
+
+  return {
+    backgroundImage: `url(${spriteURL})`,
+    backgroundPosition: `-${x}px -${y}px`,
+    backgroundSize: `${cols * SPRITE_WIDTH}px auto`,
+    backgroundRepeat: "no-repeat",
+    imageRendering: "pixelated",
   };
 };
 
@@ -168,15 +229,20 @@ export const ReviewFrame = ({
 
         <div className="customer-display">
           <div className="text-wrapper">Realcost_MorronError</div>
-          <img
+          <div
             className="customer-image"
-            alt="Customer image"
-            src={customerImage}
+            style={getCustomerSpriteStyle(selectedSkin?.spriteIndex)}
           />
         </div>
 
         <div className="food-icon-group-2">
-          <img className="img" alt="Food icon" src={foodIcon} />
+          <div
+            className="img"
+            style={getSmallFoodSpriteStyle(
+              selectedFood?.index,
+              selectedFood?.file
+            )}
+          />
           <p className="p">
             {selectedFood?.name || "Strawberry And Chocolate Soft serve"}
           </p>

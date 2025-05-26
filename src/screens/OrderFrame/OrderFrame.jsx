@@ -76,9 +76,6 @@ const getSmallFoodSpriteStyle = (index, spritePath) => {
   const x = (zeroIndex % cols) * SPRITE_WIDTH;
   const y = Math.floor(zeroIndex / cols) * SPRITE_HEIGHT;
   const spriteURL = getFoodImage(cleanPath);
-  console.log("🥤 index = ", zeroIndex);
-  console.log("🧼 x = ", x);
-  console.log("🎯 y = ", y);
 
   return {
     backgroundImage: `url(${spriteURL})`,
