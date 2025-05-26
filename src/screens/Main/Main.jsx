@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { CustomerButton } from "../../components/CustomerButton";
 import { QueueButton } from "../../components/QueueButton";
 import { StaffButton } from "../../components/StaffButton";
@@ -9,30 +9,62 @@ import { ReviewFrame } from "../ReviewFrame";
 import "../../global.css";
 import "./style.css";
 
+// ✅ Auto-skip identity in dev environment
+const isLocalDev =
+  window.location.hostname.includes("localhost") ||
+  window.location.hostname.includes("127.0.0.1") ||
+  window.location.hostname.includes("codesandbox.io");
+
 export const Main = () => {
   const [activeFrame, setActiveFrame] = useState(null);
   const [selectedSkin, setSelectedSkin] = useState(null);
   const [selectedFood, setSelectedFood] = useState(null);
   const [isHovering, setIsHovering] = useState(false);
+  const [isIdentityLinked, setIsIdentityLinked] = useState(isLocalDev); // ✅ default true if local dev
 
   const containerRef = useRef(null);
   const buttonRef = useRef(null);
 
-  const handleMouseEnter = () => {
-    setIsHovering(true);
-  };
-
+  const handleMouseEnter = () => setIsHovering(true);
   const handleMouseLeave = () => {
     setTimeout(() => {
       const stillInside =
         containerRef.current?.matches(":hover") ||
         buttonRef.current?.matches(":hover");
-
-      if (!stillInside) {
-        setIsHovering(false);
-      }
+      if (!stillInside) setIsHovering(false);
     }, 100);
   };
+
+  useEffect(() => {
+    if (!isLocalDev && window.Twitch && window.Twitch.ext) {
+      window.Twitch.ext.onAuthorized((auth) => {
+        const userId = auth.userId;
+        if (userId && !userId.startsWith("U")) {
+          console.log("✅ Identity linked:", userId);
+          setIsIdentityLinked(true);
+        } else {
+          console.log("🔒 Identity not linked yet");
+        }
+      });
+    }
+  }, []);
+
+  const handleConnect = () => {
+    if (window.Twitch?.ext?.actions?.requestIdShare) {
+      window.Twitch.ext.actions.requestIdShare();
+      setTimeout(() => window.location.reload(), 2000);
+    }
+  };
+
+  if (!isIdentityLinked) {
+    return (
+      <div className="main connect-wrapper">
+        <button className="connect-button" onClick={handleConnect}>
+          Connect with Twitch
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -56,7 +88,7 @@ export const Main = () => {
         </div>
       </div>
 
-      {/* Renders */}
+      {/* Overlay Render */}
       {activeFrame === "queue" && (
         <div className="overlay">
           <QueueFrame
