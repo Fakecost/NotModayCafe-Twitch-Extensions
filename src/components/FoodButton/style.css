@@ -1,5 +1,5 @@
 .food-button {
-  background-image: url(https://sunny.bixmy.party/cdn/images/sprite-extension/UI-Customer-Tab4.png); /* ใช้ texture เดิม */
+  background-image: url(../../../src/Sprite-Extension/UI-Customer-Tab4.png); /* ใช้ texture เดิม */
   background-position: center;
   background-size: cover;
   height: 63px;

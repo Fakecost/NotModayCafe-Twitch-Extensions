@@ -8,11 +8,11 @@
 .star-inner {
   width: 100%;
   height: 100%;
-  background-image: url(https://sunny.bixmy.party/cdn/images/sprite-extension/UI-Review-Icon1.png); /* ⭐ ไม่ active */
+  background-image: url(../../../src/Sprite-Extension/UI-Review-Icon1.png); /* ⭐ ไม่ active */
   background-position: center;
   background-size: cover;
 }
 
 .star-frame.active .star-inner {
-  background-image: url(https://sunny.bixmy.party/cdn/images/sprite-extension/UI-Review-Icon2.png); /* ⭐ active */
+  background-image: url(../../../src/Sprite-Extension/UI-Review-Icon2.png); /* ⭐ active */
 }
