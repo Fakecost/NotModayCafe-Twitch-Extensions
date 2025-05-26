@@ -9,7 +9,7 @@ import { ReviewFrame } from "../ReviewFrame";
 import "../../global.css";
 import "./style.css";
 
-// ✅ Auto-skip identity in dev environment
+// ✅ กำหนด environment สำหรับ dev
 const isLocalDev =
   window.location.hostname.includes("localhost") ||
   window.location.hostname.includes("127.0.0.1") ||
@@ -20,7 +20,9 @@ export const Main = () => {
   const [selectedSkin, setSelectedSkin] = useState(null);
   const [selectedFood, setSelectedFood] = useState(null);
   const [isHovering, setIsHovering] = useState(false);
-  const [isIdentityLinked, setIsIdentityLinked] = useState(isLocalDev); // ✅ default true if local dev
+  const [isIdentityLinked, setIsIdentityLinked] = useState(isLocalDev); // ✅ default true if local
+  const [authToken, setAuthToken] = useState(null);
+  const [userId, setUserId] = useState(null);
 
   const containerRef = useRef(null);
   const buttonRef = useRef(null);
@@ -35,24 +37,42 @@ export const Main = () => {
     }, 100);
   };
 
+  // ✅ เมื่อ authorized → เช็ค identity จาก backend
   useEffect(() => {
-    if (!isLocalDev && window.Twitch && window.Twitch.ext) {
-      window.Twitch.ext.onAuthorized((auth) => {
-        const userId = auth.userId;
-        if (userId && !userId.startsWith("U")) {
-          console.log("✅ Identity linked:", userId);
-          setIsIdentityLinked(true);
-        } else {
-          console.log("🔒 Identity not linked yet");
-        }
-      });
-    }
+    if (isLocalDev || !window.Twitch?.ext) return;
+
+    window.Twitch.ext.onAuthorized((auth) => {
+      setAuthToken(auth.token);
+      setUserId(auth.userId);
+
+      fetch("https://sunny.bixmy.party/extension/login", {
+        method: "POST",
+        headers: {
+          Authorization: "Bearer " + auth.token,
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.userId && !data.userId.startsWith("U")) {
+            console.log("✅ Twitch identity linked:", data.userId);
+            setIsIdentityLinked(true);
+          } else {
+            console.log("🔒 Twitch identity not linked");
+          }
+        })
+        .catch((err) => {
+          console.warn("⚠️ Twitch login failed", err);
+        });
+    });
   }, []);
 
   const handleConnect = () => {
     if (window.Twitch?.ext?.actions?.requestIdShare) {
       window.Twitch.ext.actions.requestIdShare();
       setTimeout(() => window.location.reload(), 2000);
+    } else {
+      console.warn("❌ Twitch.ext.actions.requestIdShare not available");
     }
   };
 
@@ -88,7 +108,7 @@ export const Main = () => {
         </div>
       </div>
 
-      {/* Overlay Render */}
+      {/* Overlay */}
       {activeFrame === "queue" && (
         <div className="overlay">
           <QueueFrame
