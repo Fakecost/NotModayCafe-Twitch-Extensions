@@ -9,7 +9,6 @@ import { ReviewFrame } from "../ReviewFrame";
 import "../../global.css";
 import "./style.css";
 
-// ✅ Detect local dev (auto skip identity)
 const isLocalDev =
   window.location.hostname.includes("localhost") ||
   window.location.hostname.includes("127.0.0.1") ||
@@ -22,11 +21,13 @@ export const Main = () => {
   const [isHovering, setIsHovering] = useState(false);
   const [isIdentityLinked, setIsIdentityLinked] = useState(isLocalDev);
   const [token, setToken] = useState(null);
+  const [userId, setUserId] = useState(null);
+  const [username, setUsername] = useState("Unknown");
+  const [isSubscriber, setIsSubscriber] = useState(false);
 
   const containerRef = useRef(null);
   const buttonRef = useRef(null);
 
-  // ✅ Mouse hover for slide-in menu
   const handleMouseEnter = () => setIsHovering(true);
   const handleMouseLeave = () => {
     setTimeout(() => {
@@ -37,7 +38,6 @@ export const Main = () => {
     }, 100);
   };
 
-  // ✅ Wait for Twitch.ext to be ready
   useEffect(() => {
     if (isLocalDev) return;
 
@@ -53,13 +53,16 @@ export const Main = () => {
             method: "POST",
             headers: {
               Authorization: "Bearer " + auth.token,
-              "Content-Type": "application/json"
-            }
+              "Content-Type": "application/json",
+            },
           })
             .then((res) => res.json())
             .then((data) => {
               if (data.userId && !data.userId.startsWith("U")) {
                 setIsIdentityLinked(true);
+                setUserId(data.userId);
+                setUsername(data.username || "Unknown");
+                setIsSubscriber(data.isSubscriber || false);
                 console.log("✅ Identity linked:", data.userId);
               }
             })
@@ -74,7 +77,6 @@ export const Main = () => {
     return () => clearInterval(waitForTwitch);
   }, []);
 
-  // ✅ When user clicks "Connect with Twitch"
   const handleConnect = () => {
     if (window.Twitch?.ext?.actions?.requestIdShare) {
       window.Twitch.ext.actions.requestIdShare();
@@ -85,13 +87,16 @@ export const Main = () => {
           method: "POST",
           headers: {
             Authorization: "Bearer " + token,
-            "Content-Type": "application/json"
-          }
+            "Content-Type": "application/json",
+          },
         })
           .then((res) => res.json())
           .then((data) => {
             if (data.userId && !data.userId.startsWith("U")) {
               setIsIdentityLinked(true);
+              setUserId(data.userId);
+              setUsername(data.username || "Unknown");
+              setIsSubscriber(data.isSubscriber || false);
               console.log("✅ Identity linked after requestIdShare");
             }
           });
@@ -101,7 +106,6 @@ export const Main = () => {
     }
   };
 
-  // ✅ Show Connect UI if not linked
   if (!isIdentityLinked) {
     return (
       <div className="main connect-wrapper">
@@ -112,7 +116,6 @@ export const Main = () => {
     );
   }
 
-  // ✅ Main UI + Sliding Buttons
   return (
     <div
       className="main"
@@ -121,7 +124,9 @@ export const Main = () => {
       onMouseLeave={handleMouseLeave}
     >
       <div
-        className={`main-button-wrapper ${isHovering ? "slide-in" : "slide-out"}`}
+        className={`main-button-wrapper ${
+          isHovering ? "slide-in" : "slide-out"
+        }`}
         ref={buttonRef}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
@@ -133,7 +138,6 @@ export const Main = () => {
         </div>
       </div>
 
-      {/* === Overlay Frame === */}
       {activeFrame === "queue" && (
         <div className="overlay">
           <QueueFrame
@@ -173,6 +177,10 @@ export const Main = () => {
             onClose={() => setActiveFrame(null)}
             onBack={() => setActiveFrame("order")}
             onNext={() => setActiveFrame("queue")}
+            token={token}
+            userId={userId}
+            username={username}
+            isSubscriber={isSubscriber}
           />
         </div>
       )}

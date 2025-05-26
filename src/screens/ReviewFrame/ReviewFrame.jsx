@@ -3,7 +3,6 @@ import { StarFrame } from "../../components/StarFrame";
 import { availableFoods } from "../../Data.generated";
 import "./style.css";
 
-// โหลดรูปทั้งหมดใน local
 const allImages = import.meta.glob("/src/PNG-*/**/*.{png,jpg,webp}", {
   eager: true,
 });
@@ -14,7 +13,6 @@ const iconImages = import.meta.glob("/src/Sprite-Extension/*.png", {
   eager: true,
 });
 
-// Utility หา path จาก string
 const getImage = (relativePath) => {
   const cleanPath = relativePath.split("?")[0];
   return (
@@ -36,12 +34,9 @@ const getIcon = (name) =>
   Object.entries(iconImages).find(([path]) => path.includes(name))?.[1]
     ?.default;
 
-// ✅ SPRITE SHEET CONFIG
-
-// ✅ ฟังก์ชันจัด style
 const normalize = (p) =>
   p
-    ?.replace(/^\.?\/?src\//, "")
+    ?.replace(/^\.\/?\.\/?src\//, "")
     .replace(/^\.\//, "")
     .replace(/^\/+/, "");
 
@@ -62,8 +57,6 @@ const getSpriteStyle = (index, spritePath) => {
   const x = (zeroIndex % cols) * SPRITE_WIDTH;
   const y = Math.floor(zeroIndex / cols) * SPRITE_HEIGHT;
 
-  console.log(cleanPath);
-
   return {
     width: `${SPRITE_WIDTH}px`,
     height: `${SPRITE_HEIGHT}px`,
@@ -83,7 +76,6 @@ const getCustomerSpriteStyle = (index) => {
   const SPRITE_WIDTH = 280;
   const SPRITE_HEIGHT = 350;
   const COLUMNS = 6;
-
   const x = (index % COLUMNS) * SPRITE_WIDTH;
   const y = Math.floor(index / COLUMNS) * SPRITE_HEIGHT;
 
@@ -143,18 +135,49 @@ export const ReviewFrame = ({
   onClose,
   selectedSkin,
   selectedFood,
+  username = "Customer",
+  token,
+  userId,
+  isSubscriber,
 }) => {
   const [rating, setRating] = useState(1);
   const [reviewText, setReviewText] = useState("");
-
-  const customerImage = selectedSkin?.file
-    ? getCustomerImage(selectedSkin.file)
-    : "";
 
   const fallbackImage = getImage("PNG-Foods/Food-Food-Thai-PadThai-export.png");
   const foodIcon = selectedFood?.file
     ? getImage(selectedFood.file)
     : fallbackImage;
+
+  const sendReviewCommand = () => {
+    if (!selectedSkin || !selectedFood || !token || !userId) return;
+
+    const fullCommand = `!join !char ${selectedSkin.id} !menu ${selectedFood.name} !review ${rating} ${reviewText}`;
+
+    fetch("https://sunny.bixmy.party/extension/event", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify({
+        type: "extension-click",
+        command: fullCommand,
+        message: fullCommand,
+        viewerId: userId,
+        username,
+        isSubscriber,
+        platform: "twitch_account",
+        viewer: userId,
+        selectedSkin: selectedSkin.id,
+      }),
+    }).then((res) => {
+      if (res.ok) {
+        onNext();
+      } else {
+        alert("❌ Failed to send review");
+      }
+    });
+  };
 
   return (
     <div className="review-frame">
@@ -169,8 +192,8 @@ export const ReviewFrame = ({
           <div className="food-big-display">
             <div
               className="food-background"
-              style={{
-                ...(selectedFood?.bigFile && selectedFood?.index
+              style={
+                selectedFood?.bigFile && selectedFood?.index
                   ? getSpriteStyle(selectedFood.index, selectedFood.bigFile)
                   : {
                       backgroundImage: `url(${fallbackImage})`,
@@ -178,8 +201,8 @@ export const ReviewFrame = ({
                       backgroundRepeat: "no-repeat",
                       width: "100%",
                       height: "100%",
-                    }),
-              }}
+                    }
+              }
             />
           </div>
 
@@ -228,7 +251,7 @@ export const ReviewFrame = ({
         </div>
 
         <div className="customer-display">
-          <div className="text-wrapper">Realcost_MorronError</div>
+          <div className="text-wrapper">{username}</div>
           <div
             className="customer-image"
             style={getCustomerSpriteStyle(selectedSkin?.spriteIndex)}
@@ -257,7 +280,7 @@ export const ReviewFrame = ({
           </div>
         </button>
 
-        <button className="confirm-button" onClick={onNext}>
+        <button className="confirm-button" onClick={sendReviewCommand}>
           <div className="overlap-group-2">
             <div className="text-wrapper-2">Confirm</div>
           </div>
