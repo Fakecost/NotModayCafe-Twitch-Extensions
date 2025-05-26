@@ -11,7 +11,8 @@ const iconImages = import.meta.glob("../../Sprite-Extension/*.png", {
   eager: true,
 });
 
-const getImage = (path) => allImages[path]?.default || "";
+const getImage = (path) =>
+  Object.entries(allImages).find(([k]) => k.endsWith(path))?.[1]?.default || "";
 const getIcon = (name) =>
   Object.entries(iconImages).find(([path]) => path.includes(name))?.[1]
     ?.default;
@@ -37,7 +38,7 @@ const getSmallFoodSpriteStyle = (index, spritePath) => {
   const x = (zeroIndex % cols) * SPRITE_WIDTH;
   const y = Math.floor(zeroIndex / cols) * SPRITE_HEIGHT;
   const spriteURL = getImage(cleanPath);
-
+  console.log(cleanPath);
   return {
     backgroundImage: `url(${spriteURL})`,
     backgroundPosition: `-${x}px -${y}px`,
@@ -46,7 +47,6 @@ const getSmallFoodSpriteStyle = (index, spritePath) => {
     imageRendering: "pixelated",
   };
 };
-
 const getCustomerSpriteStyle = (index) => {
   const SPRITE_PATH = "/src/PNG-Customer/CustomerSpriteSheet.png";
   const SPRITE_WIDTH = 280;
