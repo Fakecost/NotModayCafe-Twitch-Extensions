@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { FoodButton } from "../../components/FoodButton";
-import { StarFrame } from "../../components/StarFrame";
 import { availableSkins } from "../../Data";
 import { availableFoods } from "../../Data.generated";
 import "./style.css";
@@ -11,17 +10,42 @@ const allImages = import.meta.glob("/src/PNG-*/**/*.{png,jpg,webp}", {
 const iconImages = import.meta.glob("../../Sprite-Extension/*.png", {
   eager: true,
 });
-const customerImages = import.meta.glob("/src/PNG-Customer/*.png", {
-  eager: true,
-});
 
 const getImage = (path) => allImages[path]?.default || "";
 const getIcon = (name) =>
   Object.entries(iconImages).find(([path]) => path.includes(name))?.[1]
     ?.default;
-const getCustomerImage = (file) =>
-  Object.entries(customerImages).find(([key]) => key.endsWith(`/${file}`))?.[1]
-    .default || "";
+
+const normalize = (p) =>
+  p
+    ?.replace(/^\.?\/?src\//, "")
+    .replace(/^\.\//, "")
+    .replace(/^\/+/, "");
+
+const getSmallFoodSpriteStyle = (index, spritePath) => {
+  if (!index || !spritePath) return {};
+  const SPRITE_WIDTH = 100;
+  const SPRITE_HEIGHT = 100;
+  const SPRITE_COLS_BY_PATH = {
+    "PNG-Foods/SmallFoodSpriteSheet.png": 13,
+    "PNG-Drinks/SmallDrinkSpriteSheet.png": 13,
+    "PNG-Desserts/SmallDessertSpriteSheet.png": 10,
+  };
+  const cleanPath = normalize(spritePath);
+  const cols = SPRITE_COLS_BY_PATH[cleanPath] || 1;
+  const zeroIndex = index - 1;
+  const x = (zeroIndex % cols) * SPRITE_WIDTH;
+  const y = Math.floor(zeroIndex / cols) * SPRITE_HEIGHT;
+  const spriteURL = getImage(cleanPath);
+
+  return {
+    backgroundImage: `url(${spriteURL})`,
+    backgroundPosition: `-${x}px -${y}px`,
+    backgroundSize: `${cols * SPRITE_WIDTH}px auto`,
+    backgroundRepeat: "no-repeat",
+    imageRendering: "pixelated",
+  };
+};
 
 const getCustomerSpriteStyle = (index) => {
   const SPRITE_PATH = "/src/PNG-Customer/CustomerSpriteSheet.png";
@@ -45,38 +69,6 @@ const getCustomerSpriteStyle = (index) => {
     position: "absolute",
     top: "-10px",
     left: "0px",
-  };
-};
-
-const normalize = (p) =>
-  p
-    ?.replace(/^\.?\/?src\//, "")
-    .replace(/^\.\//, "")
-    .replace(/^\/+/, "");
-
-const getSmallFoodSpriteStyle = (index, spritePath) => {
-  if (!index || !spritePath) return {};
-  const SPRITE_WIDTH = 100;
-  const SPRITE_HEIGHT = 100;
-  const SPRITE_COLS_BY_PATH = {
-    "PNG-Foods/SmallFoodSpriteSheet.png": 13,
-    "PNG-Drinks/SmallDrinkSpriteSheet.png": 13,
-    "PNG-Desserts/SmallDessertSpriteSheet.png": 10,
-  };
-  const cleanPath = normalize(spritePath);
-  const cols = SPRITE_COLS_BY_PATH[cleanPath] || 1;
-  const zeroIndex = index - 1;
-
-  const x = (zeroIndex % cols) * SPRITE_WIDTH;
-  const y = Math.floor(zeroIndex / cols) * SPRITE_HEIGHT;
-  const spriteURL = getImage(cleanPath);
-
-  return {
-    backgroundImage: `url(${spriteURL})`,
-    backgroundPosition: `-${x}px -${y}px`,
-    backgroundSize: `${cols * SPRITE_WIDTH}px auto`,
-    backgroundRepeat: "no-repeat",
-    imageRendering: "pixelated",
   };
 };
 
@@ -109,6 +101,7 @@ export const OrderFrame = ({
           style={{ cursor: "pointer" }}
         />
 
+        {/* FOOD SELECTION GRID */}
         <div className="food-grid">
           <div className="container-2">
             {availableFoods.map((food) => {
@@ -127,6 +120,7 @@ export const OrderFrame = ({
           </div>
         </div>
 
+        {/* NAVIGATION BUTTONS */}
         <button className="back-button-wrapper" onClick={onBack}>
           <div className="overlap-group-wrapper-2">
             <div className="overlap-group-5">
@@ -143,6 +137,7 @@ export const OrderFrame = ({
           </div>
         </button>
 
+        {/* TITLE + STATUS UI */}
         <div className="overlap-3">
           <div className="order-title">Order your Dish</div>
           <div className="status-UI-2">
@@ -166,6 +161,7 @@ export const OrderFrame = ({
           </div>
         </div>
 
+        {/* CUSTOMER SPRITE */}
         <div className="customer-display-2">
           <div className="queue-name-2">{username}</div>
           <div
@@ -174,6 +170,7 @@ export const OrderFrame = ({
           />
         </div>
 
+        {/* FOOD SUMMARY */}
         <div className="food-icon-group-3">
           <div
             className="food-icon-2"

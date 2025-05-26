@@ -53,8 +53,8 @@ export const Main = () => {
             method: "POST",
             headers: {
               Authorization: "Bearer " + auth.token,
-              "Content-Type": "application/json",
-            },
+              "Content-Type": "application/json"
+            }
           })
             .then((res) => res.json())
             .then((data) => {
@@ -87,8 +87,8 @@ export const Main = () => {
           method: "POST",
           headers: {
             Authorization: "Bearer " + token,
-            "Content-Type": "application/json",
-          },
+            "Content-Type": "application/json"
+          }
         })
           .then((res) => res.json())
           .then((data) => {
@@ -124,9 +124,7 @@ export const Main = () => {
       onMouseLeave={handleMouseLeave}
     >
       <div
-        className={`main-button-wrapper ${
-          isHovering ? "slide-in" : "slide-out"
-        }`}
+        className={`main-button-wrapper ${isHovering ? "slide-in" : "slide-out"}`}
         ref={buttonRef}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
@@ -142,8 +140,7 @@ export const Main = () => {
         <div className="overlay">
           <QueueFrame
             onClose={() => setActiveFrame(null)}
-            onJoinClick={() => setActiveFrame("join")}
-          />
+            onJoinClick={() => setActiveFrame("join")} />
         </div>
       )}
       {activeFrame === "join" && (
@@ -153,8 +150,7 @@ export const Main = () => {
             onNext={(skin) => {
               setSelectedSkin(skin);
               setActiveFrame("order");
-            }}
-          />
+            }} />
         </div>
       )}
       {activeFrame === "order" && (
@@ -166,7 +162,7 @@ export const Main = () => {
             onClose={() => setActiveFrame(null)}
             onBack={() => setActiveFrame("join")}
             onNext={() => setActiveFrame("review")}
-          />
+            username={username} />
         </div>
       )}
       {activeFrame === "review" && (
@@ -180,8 +176,7 @@ export const Main = () => {
             token={token}
             userId={userId}
             username={username}
-            isSubscriber={isSubscriber}
-          />
+            isSubscriber={isSubscriber} />
         </div>
       )}
     </div>
