@@ -44,8 +44,6 @@
   max-height: 100%;
 }
 
-
-
 .order-frame .back-button-wrapper {
   all: unset;
   box-sizing: border-box;
@@ -200,12 +198,12 @@
 }
 
 .order-frame .food-icon-2 {
-  height: 105px;
-  left: 4px;
+  height: 100px;
   object-fit: cover;
   position: absolute;
-  top: 4px;
-  width: 104px;
+  width: 100px;
+  left: 5px;
+  top: 10px;
 }
 
 .order-frame .food-name-2 {

@@ -67,7 +67,7 @@ const getSmallFoodSpriteStyle = (index, spritePath) => {
   const SPRITE_COLS_BY_PATH = {
     "PNG-Foods/SmallFoodSpriteSheet.png": 13,
     "PNG-Drinks/SmallDrinkSpriteSheet.png": 13,
-    "PNG-Desserts/SmallDessertSpriteSheet.png": 20,
+    "PNG-Desserts/SmallDessertSpriteSheet.png": 10,
   };
   const cleanPath = normalize(spritePath);
   const cols = SPRITE_COLS_BY_PATH[cleanPath] || 1;
@@ -86,13 +86,6 @@ const getSmallFoodSpriteStyle = (index, spritePath) => {
     backgroundSize: `${cols * SPRITE_WIDTH}px auto`,
     backgroundRepeat: "no-repeat",
     imageRendering: "pixelated",
-    width: `${SPRITE_WIDTH}px`,
-    height: `${SPRITE_HEIGHT}px`,
-    transform: "scale(0.48)",
-    transformOrigin: "top left",
-    position: "absolute",
-    top: "3px",
-    left: "2px",
   };
 };
 
@@ -200,10 +193,13 @@ export const OrderFrame = ({
 
         {/* FOOD SUMMARY */}
         <div className="food-icon-group-3">
-          <img
+          <div
             className="food-icon-2"
             alt="Food icon"
-            src={selectedFoodImage || "/fallback/foodicon.png"}
+            style={getSmallFoodSpriteStyle(
+              selectedFood?.index,
+              selectedFood?.file
+            )}
           />
           <p className="food-name-2">
             {selectedFood?.name || "Strawberry And Chocolate Soft serve"}
