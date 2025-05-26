@@ -1,16 +1,43 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { CustomerButton } from "../../components/CustomerButton";
+import { QueueButton } from "../../components/QueueButton";
+import { StaffButton } from "../../components/StaffButton";
+import { QueueFrame } from "../QueueFrame";
+import { JoinFrame } from "../JoinFrame";
+import { OrderFrame } from "../OrderFrame";
+import { ReviewFrame } from "../ReviewFrame";
+import "../../global.css";
 import "./style.css";
 
+// ✅ Detect local dev (auto skip identity)
 const isLocalDev =
   window.location.hostname.includes("localhost") ||
   window.location.hostname.includes("127.0.0.1") ||
   window.location.hostname.includes("codesandbox.io");
 
 export const Main = () => {
+  const [activeFrame, setActiveFrame] = useState(null);
+  const [selectedSkin, setSelectedSkin] = useState(null);
+  const [selectedFood, setSelectedFood] = useState(null);
+  const [isHovering, setIsHovering] = useState(false);
   const [isIdentityLinked, setIsIdentityLinked] = useState(isLocalDev);
   const [token, setToken] = useState(null);
 
-  // ✅ รอให้ Twitch.ext พร้อมก่อนเรียก
+  const containerRef = useRef(null);
+  const buttonRef = useRef(null);
+
+  // ✅ Mouse hover for slide-in menu
+  const handleMouseEnter = () => setIsHovering(true);
+  const handleMouseLeave = () => {
+    setTimeout(() => {
+      const stillInside =
+        containerRef.current?.matches(":hover") ||
+        buttonRef.current?.matches(":hover");
+      if (!stillInside) setIsHovering(false);
+    }, 100);
+  };
+
+  // ✅ Wait for Twitch.ext to be ready
   useEffect(() => {
     if (isLocalDev) return;
 
@@ -19,28 +46,25 @@ export const Main = () => {
         console.log("✅ Twitch.ext ready");
 
         window.Twitch.ext.onAuthorized((auth) => {
-          console.log("🟪 Authorized:", auth);
+          console.log("🟣 Authorized:", auth);
           setToken(auth.token);
 
-          // ✅ ตรวจ Identity จาก backend
           fetch("https://sunny.bixmy.party/extension/login", {
             method: "POST",
             headers: {
               Authorization: "Bearer " + auth.token,
-              "Content-Type": "application/json",
-            },
+              "Content-Type": "application/json"
+            }
           })
             .then((res) => res.json())
             .then((data) => {
               if (data.userId && !data.userId.startsWith("U")) {
-                console.log("✅ Identity linked from server:", data.userId);
                 setIsIdentityLinked(true);
-              } else {
-                console.warn("🔒 Identity not granted yet");
+                console.log("✅ Identity linked:", data.userId);
               }
             })
             .catch((err) => {
-              console.warn("⚠️ Could not check identity:", err);
+              console.warn("⚠️ Twitch identity check failed", err);
             });
         });
 
@@ -50,28 +74,25 @@ export const Main = () => {
     return () => clearInterval(waitForTwitch);
   }, []);
 
-  // ✅ ปุ่ม Connect
+  // ✅ When user clicks "Connect with Twitch"
   const handleConnect = () => {
     if (window.Twitch?.ext?.actions?.requestIdShare) {
-      console.log("📣 requestIdShare called");
       window.Twitch.ext.actions.requestIdShare();
 
-      // ✅ Poll ซ้ำภายหลังแทนการ reload
       setTimeout(() => {
+        if (!token) return;
         fetch("https://sunny.bixmy.party/extension/login", {
           method: "POST",
           headers: {
             Authorization: "Bearer " + token,
-            "Content-Type": "application/json",
-          },
+            "Content-Type": "application/json"
+          }
         })
           .then((res) => res.json())
           .then((data) => {
             if (data.userId && !data.userId.startsWith("U")) {
               setIsIdentityLinked(true);
-              console.log("✅ Grant success after Connect");
-            } else {
-              console.warn("❌ Grant still not linked");
+              console.log("✅ Identity linked after requestIdShare");
             }
           });
       }, 3000);
@@ -80,6 +101,7 @@ export const Main = () => {
     }
   };
 
+  // ✅ Show Connect UI if not linked
   if (!isIdentityLinked) {
     return (
       <div className="main connect-wrapper">
@@ -90,10 +112,70 @@ export const Main = () => {
     );
   }
 
-  // ⬇️ ที่เหลือของคุณ เช่นปุ่ม, overlay, gameplay ⬇️
+  // ✅ Main UI + Sliding Buttons
   return (
-    <div className="main">
-      <div style={{ color: "white" }}>✅ Identity Linked</div>
+    <div
+      className="main"
+      ref={containerRef}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <div
+        className={`main-button-wrapper ${isHovering ? "slide-in" : "slide-out"}`}
+        ref={buttonRef}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        <div className="main-button-2">
+          <QueueButton onClick={() => setActiveFrame("queue")} />
+          <CustomerButton onClick={() => setActiveFrame("join")} />
+          {false && <StaffButton />}
+        </div>
+      </div>
+
+      {/* === Overlay Frame === */}
+      {activeFrame === "queue" && (
+        <div className="overlay">
+          <QueueFrame
+            onClose={() => setActiveFrame(null)}
+            onJoinClick={() => setActiveFrame("join")}
+          />
+        </div>
+      )}
+      {activeFrame === "join" && (
+        <div className="overlay">
+          <JoinFrame
+            onClose={() => setActiveFrame(null)}
+            onNext={(skin) => {
+              setSelectedSkin(skin);
+              setActiveFrame("order");
+            }}
+          />
+        </div>
+      )}
+      {activeFrame === "order" && (
+        <div className="overlay">
+          <OrderFrame
+            selectedSkin={selectedSkin}
+            selectedFood={selectedFood}
+            setSelectedFood={setSelectedFood}
+            onClose={() => setActiveFrame(null)}
+            onBack={() => setActiveFrame("join")}
+            onNext={() => setActiveFrame("review")}
+          />
+        </div>
+      )}
+      {activeFrame === "review" && (
+        <div className="overlay">
+          <ReviewFrame
+            selectedSkin={selectedSkin}
+            selectedFood={selectedFood}
+            onClose={() => setActiveFrame(null)}
+            onBack={() => setActiveFrame("order")}
+            onNext={() => setActiveFrame("queue")}
+          />
+        </div>
+      )}
     </div>
   );
 };
