@@ -201,16 +201,20 @@ export const Main = () => {
           />
         </div>
       )}
-      <OrderFrame
-        selectedSkin={selectedSkin}
-        selectedFood={selectedFood}
-        setSelectedFood={setSelectedFood}
-        onClose={() => setActiveFrame(null)}
-        onBack={() => setActiveFrame("join")}
-        onNext={() => setActiveFrame("review")}
-        username={username}
-        gameState={gameState} // ✅ ส่งเพิ่มตรงนี้
-      />
+      {activeFrame === "order" && (
+        <div className="overlay">
+          <OrderFrame
+            selectedSkin={selectedSkin}
+            selectedFood={selectedFood}
+            setSelectedFood={setSelectedFood}
+            onClose={() => setActiveFrame(null)}
+            onBack={() => setActiveFrame("join")}
+            onNext={() => setActiveFrame("review")}
+            gameState={gameState}
+            username={username}
+          />
+        </div>
+      )}
       {activeFrame === "review" && (
         <div className="overlay">
           <ReviewFrame
