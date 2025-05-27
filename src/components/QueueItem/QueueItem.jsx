@@ -1,22 +1,26 @@
-/*
-We're constantly improving the code you see. 
-Please share your feedback here: https://form.asana.com/?k=uvp-HPgd3_hyoXRBw1IcNg&d=1152665201300829
-*/
-
 import React from "react";
 import "./style.css";
 
-export const QueueItem = ({ className }) => {
+export const QueueItem = ({
+  userName = "Unknown",
+  characterName = "default",
+  menuName = "Unknown",
+  index = 0,
+}) => {
   return (
-    <div className={`queue-item ${className}`}>
-      <div className="number">1</div>
+    <div className="queue-item">
+      <div className="number">{index + 1}</div>
 
-      <img className="queue-icon" alt="Queue icon" src="/img/queueicon-3.png" />
+      <img
+        className="queue-icon"
+        alt={`${characterName}`}
+        src={`/img/${characterName.toLowerCase()}.png`}
+        onError={(e) => (e.target.src = "/img/default.png")}
+      />
 
       <div className="queue-detail">
-        <div className="queue-name">Phupakorn</div>
-
-        <p className="order-name">Order : Strawberry And Choclate Soft serve</p>
+        <div className="queue-name">{userName}</div>
+        <p className="order-name">Order: {menuName}</p>
       </div>
     </div>
   );

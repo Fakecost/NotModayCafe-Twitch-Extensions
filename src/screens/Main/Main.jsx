@@ -24,7 +24,8 @@ export const Main = () => {
   const [userId, setUserId] = useState(null);
   const [username, setUsername] = useState("Unknown");
   const [isSubscriber, setIsSubscriber] = useState(false);
-
+  const [gameState, setGameState] = useState(null);
+  const wsRef = useRef(null);
   const containerRef = useRef(null);
   const buttonRef = useRef(null);
 
@@ -53,8 +54,8 @@ export const Main = () => {
             method: "POST",
             headers: {
               Authorization: "Bearer " + auth.token,
-              "Content-Type": "application/json"
-            }
+              "Content-Type": "application/json",
+            },
           })
             .then((res) => res.json())
             .then((data) => {
@@ -64,6 +65,39 @@ export const Main = () => {
                 setUsername(data.username || "Unknown");
                 setIsSubscriber(data.isSubscriber || false);
                 console.log("✅ Identity linked:", data.userId);
+
+                // ✅ เชื่อม WebSocket
+                if (!wsRef.current) {
+                  const ws = new WebSocket("wss://sunny.bixmy.party/ws");
+                  wsRef.current = ws;
+
+                  ws.onopen = () => {
+                    console.log("✅ WS connected");
+                    ws.send(
+                      JSON.stringify({
+                        type: "viewer-join",
+                        streamerId: auth.channelId,
+                      })
+                    );
+                  };
+
+                  ws.onmessage = (event) => {
+                    const msg = JSON.parse(event.data);
+                    if (msg.type === "game-state") {
+                      console.log("📦 GameState received:", msg);
+                      setGameState(msg);
+                    }
+                  };
+
+                  ws.onerror = (err) => {
+                    console.error("❌ WebSocket error", err);
+                  };
+
+                  ws.onclose = () => {
+                    console.warn("⚠️ WebSocket closed");
+                    wsRef.current = null;
+                  };
+                }
               }
             })
             .catch((err) => {
@@ -77,6 +111,15 @@ export const Main = () => {
     return () => clearInterval(waitForTwitch);
   }, []);
 
+  useEffect(() => {
+    return () => {
+      if (wsRef.current) {
+        console.log("🧹 Cleaning up WebSocket...");
+        wsRef.current.close();
+      }
+    };
+  }, []);
+
   const handleConnect = () => {
     if (window.Twitch?.ext?.actions?.requestIdShare) {
       window.Twitch.ext.actions.requestIdShare();
@@ -87,8 +130,8 @@ export const Main = () => {
           method: "POST",
           headers: {
             Authorization: "Bearer " + token,
-            "Content-Type": "application/json"
-          }
+            "Content-Type": "application/json",
+          },
         })
           .then((res) => res.json())
           .then((data) => {
@@ -124,7 +167,9 @@ export const Main = () => {
       onMouseLeave={handleMouseLeave}
     >
       <div
-        className={`main-button-wrapper ${isHovering ? "slide-in" : "slide-out"}`}
+        className={`main-button-wrapper ${
+          isHovering ? "slide-in" : "slide-out"
+        }`}
         ref={buttonRef}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
@@ -140,7 +185,9 @@ export const Main = () => {
         <div className="overlay">
           <QueueFrame
             onClose={() => setActiveFrame(null)}
-            onJoinClick={() => setActiveFrame("join")} />
+            onJoinClick={() => setActiveFrame("join")}
+            gameState={gameState}
+          />
         </div>
       )}
       {activeFrame === "join" && (
@@ -150,21 +197,20 @@ export const Main = () => {
             onNext={(skin) => {
               setSelectedSkin(skin);
               setActiveFrame("order");
-            }} />
+            }}
+          />
         </div>
       )}
-      {activeFrame === "order" && (
-        <div className="overlay">
-          <OrderFrame
-            selectedSkin={selectedSkin}
-            selectedFood={selectedFood}
-            setSelectedFood={setSelectedFood}
-            onClose={() => setActiveFrame(null)}
-            onBack={() => setActiveFrame("join")}
-            onNext={() => setActiveFrame("review")}
-            username={username} />
-        </div>
-      )}
+      <OrderFrame
+        selectedSkin={selectedSkin}
+        selectedFood={selectedFood}
+        setSelectedFood={setSelectedFood}
+        onClose={() => setActiveFrame(null)}
+        onBack={() => setActiveFrame("join")}
+        onNext={() => setActiveFrame("review")}
+        username={username}
+        gameState={gameState} // ✅ ส่งเพิ่มตรงนี้
+      />
       {activeFrame === "review" && (
         <div className="overlay">
           <ReviewFrame
@@ -176,7 +222,8 @@ export const Main = () => {
             token={token}
             userId={userId}
             username={username}
-            isSubscriber={isSubscriber} />
+            isSubscriber={isSubscriber}
+          />
         </div>
       )}
     </div>

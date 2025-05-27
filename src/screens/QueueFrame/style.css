@@ -75,6 +75,14 @@
   position: absolute;
   top: 79px;
   width: 552px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* ✅ สองคอลัมน์คงที่ */
+  gap: 1px;
+  max-height: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 8px 16px;
+  justify-content: center;
 }
 
 .queue-frame .container {
@@ -100,36 +108,6 @@
   top: 0 !important;
 }
 
-.queue-frame .queue-item-2 {
-  left: 0 !important;
-  position: absolute !important;
-  top: 89px !important;
-}
-
-.queue-frame .queue-item-3 {
-  left: 0 !important;
-  position: absolute !important;
-  top: 178px !important;
-}
-
-.queue-frame .queue-item-4 {
-  left: 0 !important;
-  position: absolute !important;
-  top: 266px !important;
-}
-
-.queue-frame .queue-item-5 {
-  left: 0 !important;
-  position: absolute !important;
-  top: 355px !important;
-}
-
-.queue-frame .queue-item-6 {
-  left: 0 !important;
-  position: absolute !important;
-  top: 444px !important;
-}
-
 .queue-frame .overlap-2 {
   height: 533px;
   left: 260px;
@@ -151,3 +129,5 @@
   text-align: center;
   top: 23px;
 }
+
+/* 📦 ภาชนะสำหรับ scroll ทั้งหมด */

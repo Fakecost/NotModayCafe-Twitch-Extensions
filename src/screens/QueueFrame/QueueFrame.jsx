@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 import { QueueItem } from "../../components/QueueItem";
 import "./style.css";
 
-export const QueueFrame = ({ onClose, onJoinClick }) => {
+export const QueueFrame = ({ onClose, onJoinClick, gameState }) => {
+  const queueData = gameState?.availableQueueDataForExtensions || [];
+
   return (
     <div className="queue-frame">
       <div className="div-2">
@@ -25,29 +27,19 @@ export const QueueFrame = ({ onClose, onJoinClick }) => {
           </div>
         </button>
 
-        <div className="grid">
-          <div className="container">
-            <div className="overlap-group-4">
-              <QueueItem className="queue-item-instance" />
-              <QueueItem className="queue-item-2" />
-              <QueueItem className="queue-item-3" />
-              <QueueItem className="queue-item-4" />
-              <QueueItem className="queue-item-5" />
-              <QueueItem className="queue-item-6" />
-            </div>
-
-            <div className="overlap-2">
-              <QueueItem className="queue-item-instance" />
-              <QueueItem className="queue-item-2" />
-              <QueueItem className="queue-item-3" />
-              <QueueItem className="queue-item-4" />
-              <QueueItem className="queue-item-5" />
-              <QueueItem className="queue-item-6" />
-            </div>
-          </div>
-        </div>
-
         <div className="queue-title">Queue</div>
+
+        <div className="grid">
+          {queueData.map((item, index) => (
+            <QueueItem
+              key={`queue-${index}`}
+              index={index}
+              userName={item.userName}
+              characterName={item.characterName}
+              menuName={item.menuName}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

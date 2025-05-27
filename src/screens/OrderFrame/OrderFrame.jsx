@@ -4,6 +4,7 @@ import { availableSkins } from "../../Data";
 import { availableFoods } from "../../Data.generated";
 import "./style.css";
 
+// 🖼️ Utility สำหรับโหลด sprite
 const allImages = import.meta.glob("/src/PNG-*/**/*.{png,jpg,webp}", {
   eager: true,
 });
@@ -13,6 +14,7 @@ const iconImages = import.meta.glob("../../Sprite-Extension/*.png", {
 
 const getImage = (path) =>
   Object.entries(allImages).find(([k]) => k.endsWith(path))?.[1]?.default || "";
+
 const getIcon = (name) =>
   Object.entries(iconImages).find(([path]) => path.includes(name))?.[1]
     ?.default;
@@ -47,6 +49,7 @@ const getSmallFoodSpriteStyle = (index, spritePath) => {
     imageRendering: "pixelated",
   };
 };
+
 const getCustomerSpriteStyle = (index) => {
   const SPRITE_PATH = "/src/PNG-Customer/CustomerSpriteSheet.png";
   const SPRITE_WIDTH = 280;
@@ -79,6 +82,7 @@ export const OrderFrame = ({
   selectedSkin,
   selectedFood,
   setSelectedFood,
+  gameState,
   username = "Customer",
 }) => {
   const skin =
@@ -86,11 +90,16 @@ export const OrderFrame = ({
       ? selectedSkin
       : availableSkins[Math.floor(Math.random() * availableSkins.length)];
 
+  // ✅ Filter อาหารจาก gameState
+  const filteredFoods = availableFoods.filter((food) =>
+    gameState?.availableFoodID?.includes(food.id)
+  );
+
   useEffect(() => {
-    if (availableFoods.length > 0) {
-      setSelectedFood(availableFoods[0]);
+    if (filteredFoods.length > 0) {
+      setSelectedFood(filteredFoods[0]);
     }
-  }, []);
+  }, [filteredFoods]);
 
   return (
     <div className="order-frame">
@@ -104,7 +113,7 @@ export const OrderFrame = ({
         {/* FOOD SELECTION GRID */}
         <div className="food-grid">
           <div className="container-2">
-            {availableFoods.map((food) => {
+            {filteredFoods.map((food) => {
               const isSelected = selectedFood?.id === food.id;
               return (
                 <FoodButton
@@ -144,17 +153,17 @@ export const OrderFrame = ({
             <div className="main-button-3">
               <img
                 className="UI-customer-icon"
-                alt="UI customer"
+                alt=""
                 src={getIcon("UI-Customer-Icon1")}
               />
               <img
                 className="UI-customer-icon"
-                alt="UI customer"
+                alt=""
                 src={getIcon("UI-Customer-Icon4")}
               />
               <img
                 className="UI-customer-icon"
-                alt="UI customer"
+                alt=""
                 src={getIcon("UI-Customer-Icon5")}
               />
             </div>
