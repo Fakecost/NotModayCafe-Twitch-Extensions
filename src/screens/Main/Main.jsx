@@ -8,6 +8,7 @@ import { OrderFrame } from "../OrderFrame";
 import { ReviewFrame } from "../ReviewFrame";
 import "../../global.css";
 import "./style.css";
+import mockGameState from "../../mock_game_state.json";
 
 const isLocalDev =
   window.location.hostname.includes("localhost") ||
@@ -25,6 +26,7 @@ export const Main = () => {
   const [username, setUsername] = useState("Unknown");
   const [isSubscriber, setIsSubscriber] = useState(false);
   const [gameState, setGameState] = useState(null);
+  const [showConnect, setShowConnect] = useState(false);
   const wsRef = useRef(null);
   const containerRef = useRef(null);
   const buttonRef = useRef(null);
@@ -40,7 +42,13 @@ export const Main = () => {
   };
 
   useEffect(() => {
-    if (isLocalDev) return;
+    if (isLocalDev){
+     
+        console.log("🧪 Using mock game state");
+        setGameState(mockGameState);
+        return;
+      
+    } 
 
     const waitForTwitch = setInterval(() => {
       if (window.Twitch && window.Twitch.ext) {
@@ -66,41 +74,30 @@ export const Main = () => {
                 setIsSubscriber(data.isSubscriber || false);
                 console.log("✅ Identity linked:", data.userId);
 
-                // ✅ เชื่อม WebSocket
                 if (!wsRef.current) {
                   const ws = new WebSocket("wss://sunny.bixmy.party/ws");
                   wsRef.current = ws;
 
                   ws.onopen = () => {
                     console.log("✅ WS connected");
-
                     ws.send(
                       JSON.stringify({
                         type: "viewer-join",
                         streamerId: auth.channelId,
                       })
                     );
-
-                    // ✅ ดึง GameState ทันทีหลังเชื่อม
-                    fetch(
-                      `https://sunny.bixmy.party/game-state/${auth.channelId}`
-                    )
+                    fetch(`https://sunny.bixmy.party/game-state/${auth.channelId}`)
                       .then((res) => res.json())
                       .then((data) => {
                         if (data?.type === "game-state") {
                           console.log("🗂️ Initial GameState loaded:", data);
                           setGameState(data);
                         } else {
-                          console.warn(
-                            "⚠️ Invalid GameState structure from server"
-                          );
+                          console.warn("⚠️ Invalid GameState structure from server");
                         }
                       })
                       .catch((err) => {
-                        console.warn(
-                          "⚠️ Failed to fetch initial GameState:",
-                          err.message
-                        );
+                        console.warn("⚠️ Failed to fetch initial GameState:", err.message);
                       });
                   };
 
@@ -146,7 +143,6 @@ export const Main = () => {
   const handleConnect = () => {
     if (window.Twitch?.ext?.actions?.requestIdShare) {
       window.Twitch.ext.actions.requestIdShare();
-
       setTimeout(() => {
         if (!token) return;
         fetch("https://sunny.bixmy.party/extension/login", {
@@ -163,94 +159,68 @@ export const Main = () => {
               setUserId(data.userId);
               setUsername(data.username || "Unknown");
               setIsSubscriber(data.isSubscriber || false);
-              console.log("✅ Identity linked after requestIdShare");
+              setShowConnect(false);
             }
           });
       }, 3000);
-    } else {
-      console.warn("❌ Twitch.ext.actions.requestIdShare not available");
     }
   };
 
-  if (!isIdentityLinked) {
-    return (
-      <div className="main connect-wrapper">
-        <button className="connect-button" onClick={handleConnect}>
-          Connect with Twitch
-        </button>
-      </div>
-    );
-  }
+  const checkAndNavigate = (target) => {
+    if (!gameState) {
+      alert("Streamer has not connected their game to Twitch.");
+      return;
+    }
+    if (!isIdentityLinked) {
+      setShowConnect(true);
+      return;
+    }
+    setActiveFrame(target);
+  };
 
   return (
-    <div
-      className="main"
-      ref={containerRef}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
-    >
-      <div
-        className={`main-button-wrapper ${
-          isHovering ? "slide-in" : "slide-out"
-        }`}
-        ref={buttonRef}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-      >
+    <div className="main" ref={containerRef} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+      {showConnect && (
+        <div className="connect-popup">
+          <button className="connect-button" onClick={handleConnect}>
+            Connect with Twitch
+          </button>
+        </div>
+      )}
+
+      <div className={`main-button-wrapper ${isHovering ? "slide-in" : "slide-out"}`} ref={buttonRef}>
         <div className="main-button-2">
-          <QueueButton onClick={() => setActiveFrame("queue")} />
-          <CustomerButton onClick={() => setActiveFrame("join")} />
+          <QueueButton onClick={() => checkAndNavigate("queue")} />
+          <CustomerButton onClick={() => checkAndNavigate("join")} />
           {false && <StaffButton />}
         </div>
       </div>
 
       {activeFrame === "queue" && (
         <div className="overlay">
-          <QueueFrame
-            onClose={() => setActiveFrame(null)}
-            onJoinClick={() => setActiveFrame("join")}
-            gameState={gameState}
-          />
+          <QueueFrame onClose={() => setActiveFrame(null)} onJoinClick={() => setActiveFrame("join")} gameState={gameState} />
         </div>
       )}
       {activeFrame === "join" && (
         <div className="overlay">
-          <JoinFrame
-            onClose={() => setActiveFrame(null)}
-            onNext={(skin) => {
-              setSelectedSkin(skin);
-              setActiveFrame("order");
-            }}
-          />
+          <JoinFrame onClose={() => setActiveFrame(null)} onNext={(skin) => { setSelectedSkin(skin); setActiveFrame("order"); }} />
         </div>
       )}
       {activeFrame === "order" && (
         <div className="overlay">
-          <OrderFrame
-            selectedSkin={selectedSkin}
-            selectedFood={selectedFood}
-            setSelectedFood={setSelectedFood}
-            onClose={() => setActiveFrame(null)}
-            onBack={() => setActiveFrame("join")}
-            onNext={() => setActiveFrame("review")}
-            gameState={gameState}
-            username={username}
-          />
+          <OrderFrame selectedSkin={selectedSkin} selectedFood={selectedFood} setSelectedFood={setSelectedFood}
+                      onClose={() => setActiveFrame(null)} onBack={() => setActiveFrame("join")} onNext={() => setActiveFrame("review")}
+                      gameState={gameState} username={username} />
         </div>
       )}
       {activeFrame === "review" && (
         <div className="overlay">
-          <ReviewFrame
-            selectedSkin={selectedSkin}
-            selectedFood={selectedFood}
-            onClose={() => setActiveFrame(null)}
-            onBack={() => setActiveFrame("order")}
-            onNext={() => setActiveFrame("queue")}
-            token={token}
+          <ReviewFrame selectedSkin={selectedSkin} selectedFood={selectedFood} onClose={() => setActiveFrame(null)}
+                       onBack={() => setActiveFrame("order")} onNext={() => setActiveFrame("queue")}
+                       token={token}
             userId={userId}
             username={username}
-            isSubscriber={isSubscriber}
-          />
+            isSubscriber={isSubscriber} />
         </div>
       )}
     </div>

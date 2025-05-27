@@ -2,8 +2,8 @@
   background-image: url(../../../src/Sprite-Extension/UI-Customer-Tab4.png); /* ใช้ texture เดิม */
   background-position: center;
   background-size: cover;
-  height: 63px;
-  width: 100%;
+  width: 191.83px !important;
+  height: 63px !important;
   display: flex;
   align-items: center;
   padding: 4px 6px;

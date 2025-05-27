@@ -95,11 +95,11 @@ export const OrderFrame = ({
     gameState?.availableFoodID?.includes(food.id)
   );
 
-  useEffect(() => {
-    if (filteredFoods.length > 0) {
-      setSelectedFood(filteredFoods[0]);
-    }
-  }, [filteredFoods]);
+  // useEffect(() => {
+  //   if (filteredFoods.length > 0) {
+  //     setSelectedFood(filteredFoods[0]);
+  //   }
+  // }, [filteredFoods]);
 
   return (
     <div className="order-frame">
