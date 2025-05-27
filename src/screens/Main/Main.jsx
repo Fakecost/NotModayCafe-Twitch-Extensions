@@ -73,12 +73,35 @@ export const Main = () => {
 
                   ws.onopen = () => {
                     console.log("✅ WS connected");
+
                     ws.send(
                       JSON.stringify({
                         type: "viewer-join",
                         streamerId: auth.channelId,
                       })
                     );
+
+                    // ✅ ดึง GameState ทันทีหลังเชื่อม
+                    fetch(
+                      `https://sunny.bixmy.party/game-state/${auth.channelId}`
+                    )
+                      .then((res) => res.json())
+                      .then((data) => {
+                        if (data?.type === "game-state") {
+                          console.log("🗂️ Initial GameState loaded:", data);
+                          setGameState(data);
+                        } else {
+                          console.warn(
+                            "⚠️ Invalid GameState structure from server"
+                          );
+                        }
+                      })
+                      .catch((err) => {
+                        console.warn(
+                          "⚠️ Failed to fetch initial GameState:",
+                          err.message
+                        );
+                      });
                   };
 
                   ws.onmessage = (event) => {
