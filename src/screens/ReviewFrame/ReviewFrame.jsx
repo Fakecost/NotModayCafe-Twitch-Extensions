@@ -139,6 +139,7 @@ export const ReviewFrame = ({
   token,
   userId,
   isSubscriber,
+  streamerId,
 }) => {
   const [rating, setRating] = useState(1);
   const [reviewText, setReviewText] = useState("");
@@ -149,10 +150,9 @@ export const ReviewFrame = ({
     : fallbackImage;
 
   const sendReviewCommand = () => {
- 
-    console.log(!selectedSkin,!selectedSkin,!token,!userId);
+    console.log(!selectedSkin, !selectedSkin, !token, !userId);
     if (!selectedSkin || !selectedSkin || !token || !userId) return;
-  
+
     const fullCommand = `!join !char ${selectedSkin.id} !menu ${selectedFood.name} !review ${rating} ${reviewText}`;
 
     fetch("https://sunny.bixmy.party/extension/event", {
@@ -171,20 +171,22 @@ export const ReviewFrame = ({
         platform: "twitch_account",
         viewer: userId,
         selectedSkin: selectedSkin.id,
+        streamerId,
       }),
-    }).then(async (res) => {
-      const text = await res.text();
-      console.log("✅ Response status:", res.status, text);
-      if (res.ok) {
-        onNext();
-      } else {
-        alert("❌ Failed to send review:\n" + text);
-      }
     })
-    .catch((err) => {
-      console.error("❌ Fetch error", err);
-      alert("❌ Network error while sending review");
-    });
+      .then(async (res) => {
+        const text = await res.text();
+        console.log("✅ Response status:", res.status, text);
+        if (res.ok) {
+          onNext();
+        } else {
+          alert("❌ Failed to send review:\n" + text);
+        }
+      })
+      .catch((err) => {
+        console.error("❌ Fetch error", err);
+        alert("❌ Network error while sending review");
+      });
   };
 
   return (

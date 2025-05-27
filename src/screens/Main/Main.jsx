@@ -26,7 +26,7 @@ export const Main = () => {
   const [username, setUsername] = useState("Unknown");
   const [isSubscriber, setIsSubscriber] = useState(false);
   const [gameState, setGameState] = useState(null);
-  const [showConnect, setShowConnect] = useState(false);
+  const [streamerId, setStreamerId] = useState(null); // ✅ เพิ่ม streamerId
   const wsRef = useRef(null);
   const containerRef = useRef(null);
   const buttonRef = useRef(null);
@@ -42,13 +42,11 @@ export const Main = () => {
   };
 
   useEffect(() => {
-    if (isLocalDev){
-     
-        console.log("🧪 Using mock game state");
-        setGameState(mockGameState);
-        return;
-      
-    } 
+    if (isLocalDev) {
+      console.log("🧪 Using mock game state");
+      setGameState(mockGameState);
+      return;
+    }
 
     const waitForTwitch = setInterval(() => {
       if (window.Twitch && window.Twitch.ext) {
@@ -57,6 +55,7 @@ export const Main = () => {
         window.Twitch.ext.onAuthorized((auth) => {
           console.log("🟣 Authorized:", auth);
           setToken(auth.token);
+          setStreamerId(auth.channelId); // ✅ เก็บ streamerId
 
           fetch("https://sunny.bixmy.party/extension/login", {
             method: "POST",
@@ -86,18 +85,26 @@ export const Main = () => {
                         streamerId: auth.channelId,
                       })
                     );
-                    fetch(`https://sunny.bixmy.party/game-state/${auth.channelId}`)
+
+                    fetch(
+                      `https://sunny.bixmy.party/game-state/${auth.channelId}`
+                    )
                       .then((res) => res.json())
                       .then((data) => {
                         if (data?.type === "game-state") {
                           console.log("🗂️ Initial GameState loaded:", data);
                           setGameState(data);
                         } else {
-                          console.warn("⚠️ Invalid GameState structure from server");
+                          console.warn(
+                            "⚠️ Invalid GameState structure from server"
+                          );
                         }
                       })
                       .catch((err) => {
-                        console.warn("⚠️ Failed to fetch initial GameState:", err.message);
+                        console.warn(
+                          "⚠️ Failed to fetch initial GameState:",
+                          err.message
+                        );
                       });
                   };
 
@@ -159,7 +166,6 @@ export const Main = () => {
               setUserId(data.userId);
               setUsername(data.username || "Unknown");
               setIsSubscriber(data.isSubscriber || false);
-              setShowConnect(false);
             }
           });
       }, 3000);
@@ -172,23 +178,35 @@ export const Main = () => {
       return;
     }
     if (!isIdentityLinked) {
-      setShowConnect(true);
       return;
     }
     setActiveFrame(target);
   };
 
-  return (
-    <div className="main" ref={containerRef} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-      {showConnect && (
-        <div className="connect-popup">
-          <button className="connect-button" onClick={handleConnect}>
-            Connect with Twitch
-          </button>
-        </div>
-      )}
+  // ✅ แสดงปุ่ม Connect ถ้ายังไม่ linked
+  if (!isIdentityLinked) {
+    return (
+      <div className="main connect-wrapper">
+        <button className="connect-button" onClick={handleConnect}>
+          Connect with Twitch
+        </button>
+      </div>
+    );
+  }
 
-      <div className={`main-button-wrapper ${isHovering ? "slide-in" : "slide-out"}`} ref={buttonRef}>
+  return (
+    <div
+      className="main"
+      ref={containerRef}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <div
+        className={`main-button-wrapper ${
+          isHovering ? "slide-in" : "slide-out"
+        }`}
+        ref={buttonRef}
+      >
         <div className="main-button-2">
           <QueueButton onClick={() => checkAndNavigate("queue")} />
           <CustomerButton onClick={() => checkAndNavigate("join")} />
@@ -198,29 +216,52 @@ export const Main = () => {
 
       {activeFrame === "queue" && (
         <div className="overlay">
-          <QueueFrame onClose={() => setActiveFrame(null)} onJoinClick={() => setActiveFrame("join")} gameState={gameState} />
+          <QueueFrame
+            onClose={() => setActiveFrame(null)}
+            onJoinClick={() => setActiveFrame("join")}
+            gameState={gameState}
+          />
         </div>
       )}
       {activeFrame === "join" && (
         <div className="overlay">
-          <JoinFrame onClose={() => setActiveFrame(null)} onNext={(skin) => { setSelectedSkin(skin); setActiveFrame("order"); }} />
+          <JoinFrame
+            onClose={() => setActiveFrame(null)}
+            onNext={(skin) => {
+              setSelectedSkin(skin);
+              setActiveFrame("order");
+            }}
+          />
         </div>
       )}
       {activeFrame === "order" && (
         <div className="overlay">
-          <OrderFrame selectedSkin={selectedSkin} selectedFood={selectedFood} setSelectedFood={setSelectedFood}
-                      onClose={() => setActiveFrame(null)} onBack={() => setActiveFrame("join")} onNext={() => setActiveFrame("review")}
-                      gameState={gameState} username={username} />
+          <OrderFrame
+            selectedSkin={selectedSkin}
+            selectedFood={selectedFood}
+            setSelectedFood={setSelectedFood}
+            onClose={() => setActiveFrame(null)}
+            onBack={() => setActiveFrame("join")}
+            onNext={() => setActiveFrame("review")}
+            gameState={gameState}
+            username={username}
+          />
         </div>
       )}
       {activeFrame === "review" && (
         <div className="overlay">
-          <ReviewFrame selectedSkin={selectedSkin} selectedFood={selectedFood} onClose={() => setActiveFrame(null)}
-                       onBack={() => setActiveFrame("order")} onNext={() => setActiveFrame("queue")}
-                       token={token}
+          <ReviewFrame
+            selectedSkin={selectedSkin}
+            selectedFood={selectedFood}
+            onClose={() => setActiveFrame(null)}
+            onBack={() => setActiveFrame("order")}
+            onNext={() => setActiveFrame("queue")}
+            token={token}
             userId={userId}
             username={username}
-            isSubscriber={isSubscriber} />
+            isSubscriber={isSubscriber}
+            streamerId={streamerId} // ✅ ส่งไปให้ ReviewFrame
+          />
         </div>
       )}
     </div>
