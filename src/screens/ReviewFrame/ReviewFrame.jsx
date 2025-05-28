@@ -141,7 +141,7 @@ export const ReviewFrame = ({
   isSubscriber,
   streamerId,
 }) => {
-  const [rating, setRating] = useState(1);
+  const [rating, setRating] = useState(0);
   const [reviewText, setReviewText] = useState("");
 
   const fallbackImage = getImage("PNG-Foods/Food-Food-Thai-PadThai-export.png");
@@ -150,7 +150,7 @@ export const ReviewFrame = ({
     : fallbackImage;
 
   const sendReviewCommand = () => {
-    console.log(!selectedSkin, !selectedSkin, !token, !userId);
+    console.log(rating);
     if (!selectedSkin || !selectedSkin || !token || !userId) return;
 
     const fullCommand = `!join !char ${selectedSkin.id} !menu ${selectedFood.name} !review ${rating} ${reviewText}`;
@@ -221,7 +221,7 @@ export const ReviewFrame = ({
               <StarFrame
                 key={i}
                 isActive={i < rating}
-                onClick={() => setRating(i + 1)}
+                onClick={() => setRating(rating === i + 1 ? 0 : i + 1)}
               />
             ))}
           </div>

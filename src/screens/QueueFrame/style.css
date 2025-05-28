@@ -48,8 +48,11 @@
   background-position: 50% 50%;
   background-size: cover;
   height: 34px;
-  position: relative;
+  /* //position: relative; */
   width: 94px;
+  position: absolute; /* เปลี่ยนจาก relative → absolute */
+  left: 460px; /* ให้ตรงกับปุ่ม Next */
+  top: 590px;
 }
 
 .queue-frame .text-wrapper-3 {
@@ -73,7 +76,7 @@
   height: 552px;
   left: 13px;
   position: absolute;
-  top: 79px;
+  top: 60px;
   width: 552px;
   display: grid;
   grid-template-columns: repeat(2, 1fr); /* ✅ สองคอลัมน์คงที่ */
