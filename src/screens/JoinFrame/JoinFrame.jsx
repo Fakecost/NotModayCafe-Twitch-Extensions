@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import { CustomerButtonWrapper } from "../../components/CustomerButtonWrapper";
 import { availableSkins } from "../../Data";
 import "./style.css";
-import Icon2 from "../../Sprite-Extension/UI-Customer-Icon2.png";
-import Icon3 from "../../Sprite-Extension/UI-Customer-Icon3.png";
-import Icon5 from "../../Sprite-Extension/UI-Customer-Icon5.png";
 
 const ICON_IMAGE_BASE = "/images/Sprite-Extension/";
 
@@ -12,7 +9,12 @@ const ICON_IMAGE_BASE = "/images/Sprite-Extension/";
 const skinImages = import.meta.glob("../../PNG-Customer/*.png", {
   eager: true,
 });
-
+const iconImages = import.meta.glob("/src/Sprite-Extension/*.png", {
+  eager: true,
+});
+const getIcon = (name) =>
+  Object.entries(iconImages).find(([path]) => path.includes(name))?.[1]
+    ?.default;
 export const JoinFrame = ({ onClose, onNext }) => {
   const [selectedIndex, setSelectedIndex] = useState(null);
 
@@ -35,15 +37,27 @@ export const JoinFrame = ({ onClose, onNext }) => {
           style={{ cursor: "pointer" }}
         />
 
-        <div className="overlap-group-7">
-          <div className="status-UI-3">
-            <div className="main-button-4">
-              <img className="UI-customer-2" alt="Ui customer" src={Icon2} />
-              <img className="UI-customer-2" alt="Ui customer" src={Icon3} />
-              <img className="UI-customer-2" alt="Ui customer" src={Icon5} />
+        <div className="overlap">
+          <div className="review-title">Choose your character as Customer</div>
+          <div className="status-UI">
+            <div className="main-button">
+              <img
+                className="UI-customer"
+                alt="UI customer"
+                src={getIcon("UI-Customer-Icon2")}
+              />
+              <img
+                className="UI-customer"
+                alt="UI customer"
+                src={getIcon("UI-Customer-Icon3")}
+              />
+              <img
+                className="UI-customer"
+                alt="UI customer"
+                src={getIcon("UI-Customer-Icon5")}
+              />
             </div>
           </div>
-          <p className="customer-title">Choose your character as Customer</p>
         </div>
 
         <div className="customer-grid">

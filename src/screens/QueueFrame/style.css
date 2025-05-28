@@ -78,11 +78,12 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr); /* ✅ สองคอลัมน์คงที่ */
   gap: 1px;
-  max-height: auto;
+  max-height: 552px;
   overflow-y: auto;
   overflow-x: hidden;
   padding: 8px 16px;
   justify-content: center;
+  align-content: start;
 }
 
 .queue-frame .container {

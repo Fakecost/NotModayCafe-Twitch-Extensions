@@ -8,7 +8,7 @@ export const availableSkins = [
   { id: "elephant", name: "Elephant", spriteIndex: 6 },
   { id: "frog", name: "Frog", spriteIndex: 7 },
   { id: "giraffe", name: "Giraffe", spriteIndex: 8 },
-  { id: "hippo1", name: "Hippo1", spriteIndex: 9 },
+  { id: "hippo", name: "Hippo", spriteIndex: 9 },
   { id: "hippo2", name: "Hippo2", spriteIndex: 10 },
   { id: "hyena", name: "Hyena", spriteIndex: 11 },
   { id: "owl", name: "Owl", spriteIndex: 12 },

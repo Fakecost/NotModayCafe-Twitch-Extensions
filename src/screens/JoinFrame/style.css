@@ -128,3 +128,43 @@
   text-align: center;
   top: 5px;
 }
+.join-frame .overlap {
+  height: 96px;
+  left: 155px;
+  position: absolute;
+  top: 10px;
+  width: 500px;
+}
+
+.join-frame .review-title {
+  color: #000000;
+  font-family: "Noto Sans", Helvetica;
+  font-size: 24px;
+  font-weight: 700;
+  height: 33px;
+  left: -70px;
+  letter-spacing: 0;
+  line-height: normal;
+  position: absolute;
+  text-align: center;
+  top: 63px;
+}
+
+.join-frame .status-UI {
+  background-image: url(../../../static/img/statusui-3.png);
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 64px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 268px;
+}
+.join-frame .main-button {
+  align-items: center;
+  display: flex;
+  gap: 50px;
+  height: 64px;
+  position: relative;
+  width: 268px;
+}
