@@ -194,27 +194,29 @@ export const Main = () => {
     );
   }
 
-  let queueIndex = null;
-  let inCafe = false;
+let queueIndex = null;
+let inCafe = false;
+let isInQueue = false;
+let disableJoin = false;
 
-  if (gameState && username) {
-    const viewer = username.toLowerCase();
+if (gameState && username) {
+  const viewer = username.toLowerCase();
 
-    const queue = gameState.availableQueueDataForExtensions || [];
-    const inCafeList = gameState.inCafeInfo || [];
+  const queue = gameState.availableQueueDataForExtensions || [];
+  const inCafeList = gameState.inCafeInfo || [];
 
-    const foundIndex = queue.findIndex(
-      (q) => q.userName?.toLowerCase() === viewer
-    );
-    if (foundIndex !== -1) queueIndex = foundIndex;
+  const foundIndex = queue.findIndex(
+    (q) => q.userName?.toLowerCase() === viewer
+  );
+  if (foundIndex !== -1) queueIndex = foundIndex;
 
-    if (inCafeList.some((u) => u?.userName?.toLowerCase() === viewer)) {
-      inCafe = true;
-    }
-
-    const isInQueue = queueIndex !== null;
-    const disableJoin = inCafe || isInQueue;
+  if (inCafeList.some((u) => u?.userName?.toLowerCase() === viewer)) {
+    inCafe = true;
   }
+
+  isInQueue = queueIndex !== null;
+  disableJoin = inCafe || isInQueue;
+}
 
   return (
     <div
@@ -237,9 +239,9 @@ export const Main = () => {
           />
           <CustomerButton
             onClick={() => {
-              if (!inCafe) checkAndNavigate("join");
+              if (!disableJoin) checkAndNavigate("join");
             }}
-            inCafe={inCafe}
+            disabled={disableJoin}
           />
           {false && <StaffButton />}
         </div>

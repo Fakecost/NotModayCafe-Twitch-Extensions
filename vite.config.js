@@ -6,4 +6,7 @@ export default defineConfig({
   plugins: [react()],
   publicDir: "./static",
   base: "./",
+  build: {
+    minify: false, // ❗️ปิด minify เพื่อให้โค้ด readable
+  },
 });
