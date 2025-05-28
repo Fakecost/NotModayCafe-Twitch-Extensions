@@ -30,7 +30,7 @@ export const QueueFrame = ({
           disabled={disableJoin}
         >
           <div className="button">
-            <div className={`overlap-group-3 ${inCafe ? "disabled" : ""}`}>
+            <div className={`overlap-group-3 ${disableJoin ? "disabled" : ""}`}>
               <div className="text-wrapper-3">Join</div>
             </div>
           </div>
