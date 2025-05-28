@@ -211,6 +211,9 @@ export const Main = () => {
     if (inCafeList.some((u) => u?.userName?.toLowerCase() === viewer)) {
       inCafe = true;
     }
+
+    const isInQueue = queueIndex !== null;
+    const disableJoin = inCafe || isInQueue;
   }
 
   return (
@@ -248,7 +251,8 @@ export const Main = () => {
             onClose={() => setActiveFrame(null)}
             onJoinClick={() => setActiveFrame("join")}
             gameState={gameState}
-            inCafe={inCafe} // ✅ ส่งค่าเข้าไป
+            inCafe={inCafe}
+            isInQueue={isInQueue}
           />
         </div>
       )}

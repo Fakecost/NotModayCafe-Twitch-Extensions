@@ -1,11 +1,15 @@
 import React from "react";
 import "./style.css";
 
-export const CustomerButton = ({ className = "", onClick, inCafe = false }) => {
+export const CustomerButton = ({
+  className = "",
+  onClick,
+  disabled = false,
+}) => {
   return (
     <div
-      className={`customer-button ${inCafe ? "disabled" : ""} ${className}`}
-      onClick={inCafe ? undefined : onClick} // ❗ ป้องกันคลิก
+      className={`customer-button ${className} ${disabled ? "disabled" : ""}`}
+      onClick={disabled ? undefined : onClick}
     />
   );
 };

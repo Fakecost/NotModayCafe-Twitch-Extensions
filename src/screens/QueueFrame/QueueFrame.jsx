@@ -2,7 +2,14 @@ import React from "react";
 import { QueueItem } from "../../components/QueueItem";
 import "./style.css";
 
-export const QueueFrame = ({ onClose, onJoinClick, gameState, inCafe }) => {
+export const QueueFrame = ({
+  onClose,
+  onJoinClick,
+  gameState,
+  inCafe,
+  isInQueue,
+}) => {
+  const disableJoin = inCafe || isInQueue;
   const queueData = gameState?.availableQueueDataForExtensions || [];
   const inCafeData = gameState?.inCafeInfo || [];
 
@@ -16,11 +23,11 @@ export const QueueFrame = ({ onClose, onJoinClick, gameState, inCafe }) => {
         />
 
         <button
-          className={`join-button ${inCafe ? "disabled" : ""}`}
+          className={`join-button ${disableJoin ? "disabled" : ""}`}
           onClick={() => {
-            if (!inCafe) onJoinClick();
+            if (!disableJoin) onJoinClick();
           }}
-          disabled={inCafe}
+          disabled={disableJoin}
         >
           <div className="button">
             <div className={`overlap-group-3 ${inCafe ? "disabled" : ""}`}>
