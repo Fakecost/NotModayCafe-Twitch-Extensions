@@ -9,7 +9,7 @@
 .main-button-wrapper {
   position: fixed;
   top: 50%;
-  left: -80px; /* ซ่อนเริ่มต้น */
+  left: -50px; /* ซ่อนเริ่มต้น */
   transform: translateY(-50%);
   transition: left 0.3s ease;
   z-index: 1000;
@@ -20,7 +20,7 @@
 }
 
 .main-button-wrapper.slide-out {
-  left: -80px;
+  left: -50px;
 }
 
 .main-button-2 {

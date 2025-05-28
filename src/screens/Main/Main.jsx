@@ -10,6 +10,8 @@ import "../../global.css";
 import "./style.css";
 import mockGameState from "../../mock_game_state.json";
 
+
+
 const isLocalDev =
   window.location.hostname.includes("localhost") ||
   window.location.hostname.includes("127.0.0.1") ||
@@ -30,6 +32,13 @@ export const Main = () => {
   const wsRef = useRef(null);
   const containerRef = useRef(null);
   const buttonRef = useRef(null);
+
+  const viewerQueueIndex = gameState?.availableQueueDataForExtensions?.findIndex(
+    (v) => v.userName.toLowerCase() === username.toLowerCase()
+  );
+  const isInCafe = gameState?.inCafeUserName?.some(
+    (name) => name.toLowerCase() === username.toLowerCase()
+  );
 
   const handleMouseEnter = () => setIsHovering(true);
   const handleMouseLeave = () => {
@@ -194,6 +203,25 @@ export const Main = () => {
     );
   }
 
+  let queueIndex = null;
+let inCafe = false;
+
+if (gameState && username) {
+  const viewer = username.toLowerCase();
+
+  const queue = gameState.availableQueueDataForExtensions || [];
+  const inCafeList = gameState.inCafeUserName || [];
+
+  const foundIndex = queue.findIndex(
+    (q) => q.userName?.toLowerCase() === viewer
+  );
+  if (foundIndex !== -1) queueIndex = foundIndex;
+
+  if (inCafeList.some((u) => u?.toLowerCase() === viewer)) {
+    inCafe = true;
+  }
+}
+
   return (
     <div
       className="main"
@@ -208,7 +236,11 @@ export const Main = () => {
         ref={buttonRef}
       >
         <div className="main-button-2">
-          <QueueButton onClick={() => checkAndNavigate("queue")} />
+        <QueueButton
+  onClick={() => checkAndNavigate("queue")}
+  queueIndex={queueIndex}
+  inCafe={inCafe}
+/>
           <CustomerButton onClick={() => checkAndNavigate("join")} />
           {false && <StaffButton />}
         </div>
