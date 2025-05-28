@@ -211,7 +211,6 @@ export const Main = () => {
     if (inCafeList.some((u) => u?.userName?.toLowerCase() === viewer)) {
       inCafe = true;
     }
-    inCafe = false;
   }
 
   return (
