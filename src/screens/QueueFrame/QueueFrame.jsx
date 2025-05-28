@@ -1,10 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { QueueItem } from "../../components/QueueItem";
 import "./style.css";
 
-export const QueueFrame = ({ onClose, onJoinClick, gameState }) => {
+export const QueueFrame = ({ onClose, onJoinClick, gameState, inCafe }) => {
   const queueData = gameState?.availableQueueDataForExtensions || [];
+  const inCafeData = gameState?.inCafeInfo || [];
 
   return (
     <div className="queue-frame">
@@ -16,12 +16,14 @@ export const QueueFrame = ({ onClose, onJoinClick, gameState }) => {
         />
 
         <button
-          className="join-button"
-          onClick={onJoinClick}
-          style={{ cursor: "pointer" }}
+          className={`join-button ${inCafe ? "disabled" : ""}`}
+          onClick={() => {
+            if (!inCafe) onJoinClick();
+          }}
+          disabled={inCafe}
         >
           <div className="button">
-            <div className="overlap-group-3">
+            <div className={`overlap-group-3 ${inCafe ? "disabled" : ""}`}>
               <div className="text-wrapper-3">Join</div>
             </div>
           </div>
@@ -30,6 +32,19 @@ export const QueueFrame = ({ onClose, onJoinClick, gameState }) => {
         <div className="queue-title">Queue</div>
 
         <div className="grid">
+          {/* 👇 คนที่อยู่ในร้าน แสดงบนสุด */}
+          {inCafeData.map((item, idx) => (
+            <QueueItem
+              key={`cafe-${idx}`}
+              userName={item.userName}
+              characterName={item.currentCharacterName}
+              menuName="In Cafe"
+              index={-1} // ไม่แสดงเลข
+              isInCafe={true}
+            />
+          ))}
+
+          {/* 👇 คนที่ต่อคิว แสดงถัดมา */}
           {queueData.map((item, index) => (
             <QueueItem
               key={`queue-${index}`}
@@ -37,6 +52,7 @@ export const QueueFrame = ({ onClose, onJoinClick, gameState }) => {
               userName={item.userName}
               characterName={item.characterName}
               menuName={item.menuName}
+              isInCafe={false}
             />
           ))}
         </div>

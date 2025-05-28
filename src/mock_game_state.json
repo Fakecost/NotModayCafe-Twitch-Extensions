@@ -9,5 +9,10 @@
       "menuName": "ramen"
     }
   ],
-  "inCafeUserName": ["viewer1"]
+  "inCafeInfo": [
+
+    {"userName" : "Realcost",
+    "currentCharacterName" : "Cat"
+  }
+]
 }

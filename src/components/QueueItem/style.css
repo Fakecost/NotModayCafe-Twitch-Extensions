@@ -54,3 +54,11 @@
   word-wrap: break-word;
   font-family: "Noto Sans", Helvetica, sans-serif;
 }
+
+.queue-item.in-cafe .number {
+  visibility: hidden; /* ❗ยัง occupy space แต่ไม่แสดง */
+}
+
+.queue-item.in-cafe {
+  background-image: url(../../Sprite-Extension/UI-Queue-Tab3.png); /* พื้นหลังเฉพาะตอนอยู่ในร้าน */
+}

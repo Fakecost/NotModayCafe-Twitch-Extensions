@@ -13,3 +13,9 @@
   background-image: url(../../Sprite-Extension/UI-General-Tab5-Selected.png);
   transform: scale(1.05) translateY(2px);
 }
+.customer-button.disabled {
+  background-image: url(../../Sprite-Extension/UI-General-Tab9.png);
+  cursor: default;
+  pointer-events: none;
+  opacity: 0.9;
+}

@@ -53,6 +53,7 @@
   position: absolute; /* เปลี่ยนจาก relative → absolute */
   left: 460px; /* ให้ตรงกับปุ่ม Next */
   top: 590px;
+  cursor: pointer;
 }
 
 .queue-frame .text-wrapper-3 {
@@ -135,3 +136,8 @@
 }
 
 /* 📦 ภาชนะสำหรับ scroll ทั้งหมด */
+.queue-frame .overlap-group-3.disabled {
+  background-image: url(../../Sprite-Extension/UI-General-Tab8.png);
+  cursor: default;
+  pointer-events: none;
+}
